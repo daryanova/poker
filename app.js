@@ -117,7 +117,7 @@
               <div class="heroCardRow" id="statsRow">
                 <span class="pill">✅ کلیک‌ها سالم</span>
                 <span class="pill">⚡ سریع و سبک</span>
-                <span class="pill">📱 موبایل‌اول</span>
+                <span class="pill">📱 نسخه موبایل‌</span>
                 <span class="pill pillLink">📣 ${TELEGRAM_HANDLE}</span>
               </div>
               <div class="heroHint" id="heroHint">آخرین بخش بازشده: —</div>
