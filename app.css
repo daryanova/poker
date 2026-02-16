@@ -517,3 +517,43 @@ body.zen .bgScan{ opacity: .06; }
 body.zen .sidebar{ display:none; }
 body.zen .layout{ grid-template-columns: 1fr; }
 body.zen .hero{ box-shadow: none; }
+/* =========================
+   FIX: iOS / Mobile Clicks
+   ========================= */
+
+/* هر چیزی که بک‌گراند/نور/نویز/بلر/اورلیه باید کلیک نگیره */
+.bg,
+.bg::before,
+.bg::after,
+.noise,
+.grid,
+.glow,
+.orb,
+.hero::before,
+.hero::after,
+.backdrop,
+.overlayFx {
+  pointer-events: none !important;
+}
+
+/* محتوای اصلی باید بالای افکت‌ها باشه */
+.topbar,
+.drawer,
+.hero,
+.container,
+main,
+.card,
+.section,
+.choice,
+button,
+a {
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
+}
+
+/* روی آیفون کلیک سریع‌تر و مطمئن‌تر */
+button, a {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
