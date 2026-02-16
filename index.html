@@ -1,76 +1,122 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
-
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#050714">
-
-<title>آکادمی هولدم | آموزش حرفه‌ای پوکر</title>
-
-<!-- CSS -->
-<link rel="stylesheet" href="app.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050714" />
+  <title>آکادمی هولدم | آموزش پوکر (موبایل)</title>
+  <meta name="description" content="آکادمی هولدم - آموزش پوکر از مبتدی تا حرفه‌ای، قوانین، مثال‌ها، اصطلاحات و مسیر یادگیری." />
+  <link rel="stylesheet" href="app.css">
 </head>
 
-
 <body>
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <button id="menuBtn" class="iconBtn" aria-label="منو" title="منو">
+      <span class="hamburger"></span>
+    </button>
 
-<!-- ===== صفحه اصلی ===== -->
-<div class="home">
+    <div class="topTitle">
+      <div class="brand">آکادمی هولدم</div>
+      <div class="sub">از مبتدی تا حرفه‌ای • سریع • موبایل‌پسند</div>
+    </div>
 
-<header class="topBar">
-<button class="menuBtn" onclick="toggleMenu()">☰</button>
-<h1 class="logo">آکادمی هولدم</h1>
-</header>
+    <button id="searchBtn" class="iconBtn" aria-label="جستجو" title="جستجو">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <path d="M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16Zm11 3-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </header>
 
-<!-- منوی کناری -->
-<div class="sideMenu" id="sideMenu">
+  <!-- DRAWER -->
+  <aside id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawerHead">
+      <div class="drawerLogo">♠</div>
+      <div>
+        <div class="drawerBrand">آکادمی هولدم</div>
+        <div class="drawerHint">روی هر بخش بزن → صفحه سریع باز میشه</div>
+      </div>
+      <button id="closeDrawer" class="iconBtn small" aria-label="بستن" title="بستن">✕</button>
+    </div>
 
-<div class="menuTitle">آموزش پوکر</div>
+    <div class="drawerTools">
+      <input id="q" class="search" type="search" placeholder="جستجو: مثلا قوانین، رِنج، C-bet..." autocomplete="off" />
+      <div class="chips" id="chips"></div>
+    </div>
 
-<button onclick="openPage('rules')">📜 قوانین کامل</button>
-<button onclick="openPage('strategy')">🧠 استراتژی حرفه‌ای</button>
-<button onclick="openPage('mistakes')">❌ اشتباهات مرگبار</button>
-<button onclick="openPage('examples')">🎮 مثال واقعی دست‌ها</button>
-<button onclick="openPage('terms')">📚 اصطلاحات پوکر</button>
-<button onclick="openPage('mind')">🧘 ذهن برنده</button>
-<button onclick="openPage('roadmap')">🚀 مسیر یادگیری</button>
+    <nav class="nav" id="nav"></nav>
 
-</div>
+    <div class="drawerFoot">
+      <div class="tip">💡 نکته: هر بخش مثل اپ باز میشه، نیازی به اسکرولِ زیاد نیست.</div>
+    </div>
+  </aside>
 
-<!-- محتوای اصلی -->
-<div class="mainContent">
+  <!-- BACKDROP -->
+  <div id="backdrop" class="backdrop" hidden></div>
 
-<div class="welcome">
-<h2>به آکادمی هولدم خوش آمدی</h2>
-<p>
-اینجا همه چیز درباره پوکر حرفه‌ای رو یاد میگیری.  
-از قوانین پایه تا تفکر رنجی و تصمیم‌گیری سطح بالا.
-</p>
-</div>
+  <!-- MAIN -->
+  <main class="main">
+    <section class="hero">
+      <div class="heroCard">
+        <h1>به آکادمی هولدم خوش اومدی</h1>
+        <p>اینجا همه‌چی درباره پوکر یاد می‌گیری: از قوانین پایه تا رِنج، بلوف، Value، تصمیم‌گیری و بازی ذهنی.</p>
 
-</div>
+        <div class="heroBtns">
+          <button class="btn primary" data-open="roadmap">شروع سریع (نقشه راه)</button>
+          <button class="btn" data-open="rules">قوانین در ۱۰ دقیقه</button>
+          <button class="btn" data-open="terms">اصطلاحات مهم</button>
+        </div>
+      </div>
 
-</div>
+      <div class="stats">
+        <div class="stat">
+          <div class="statNum">+40</div>
+          <div class="statLbl">بخش آموزشی</div>
+        </div>
+        <div class="stat">
+          <div class="statNum">موبایل</div>
+          <div class="statLbl">کاملاً بهینه</div>
+        </div>
+        <div class="stat">
+          <div class="statNum">۱ کلیک</div>
+          <div class="statLbl">باز شدن صفحه</div>
+        </div>
+      </div>
+    </section>
 
+    <section class="quickGrid" id="quickGrid">
+      <!-- filled by JS -->
+    </section>
 
+    <footer class="footer">
+      ساخته شده برای اجرای روان روی موبایل • GitHub Pages
+    </footer>
+  </main>
 
-<!-- ===== صفحه بازشو ===== -->
-<div class="overlay" id="overlay">
+  <!-- MODAL PAGE -->
+  <section id="modal" class="modal" aria-hidden="true">
+    <div class="modalHeader">
+      <button id="modalBack" class="iconBtn" aria-label="بازگشت" title="بازگشت">←</button>
+      <div class="modalTitleWrap">
+        <div id="modalTitle" class="modalTitle">عنوان</div>
+        <div id="modalSub" class="modalSub">زیرعنوان</div>
+      </div>
+      <button id="modalClose" class="iconBtn" aria-label="بستن" title="بستن">✕</button>
+    </div>
 
-<div class="overlayHeader">
-<span id="overlayTitle"></span>
-<button onclick="closePage()">بستن</button>
-</div>
+    <div class="modalBody">
+      <div id="modalContent" class="content"></div>
+    </div>
 
-<div class="overlayBody" id="overlayBody"></div>
+    <div class="modalBottom">
+      <button id="prevBtn" class="btn ghost">قبلی</button>
+      <button id="nextBtn" class="btn primary">بعدی</button>
+    </div>
+  </section>
 
-</div>
+  <!-- TOAST -->
+  <div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
 
-
-
-<!-- JS -->
-<script src="app.js"></script>
-
+  <script src="app.js"></script>
 </body>
 </html>
