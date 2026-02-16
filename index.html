@@ -4,40 +4,34 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#070A10" />
-  <title>پوکر از مبتدی تا حرفه‌ای | راهنمای کامل هولدم (موبایل‌فرست)</title>
-  <meta name="description" content="آموزش کامل پوکر تگزاس هولدم از مبتدی تا حرفه‌ای + واژه‌نامه اصطلاحات + کوییز + ماشین حساب ها + ذخیره پیشرفت روی موبایل." />
+  <title>Poker Master | آموزش پوکر از مبتدی تا حرفه‌ای</title>
+  <meta name="description" content="سایت کامل آموزش پوکر: مبتدی تا حرفه‌ای + واژه‌نامه + تمرین + ماشین‌حساب + صفحات زیاد (Mobile-first)"/>
 
   <style>
     :root{
-      --bg0:#060910;
-      --bg1:#0A0F18;
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.04);
+      --bg0:#05070D;
+      --bg1:#0A1120;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.035);
       --line: rgba(255,255,255,.10);
-
       --txt:#ECF3FF;
-      --muted: rgba(236,243,255,.72);
-      --muted2: rgba(236,243,255,.55);
-
+      --muted: rgba(236,243,255,.70);
+      --muted2: rgba(236,243,255,.52);
       --neon:#55D7FF;
       --ok:#3DFFB6;
       --gold:#FFD76A;
       --danger:#FF5D73;
       --purple:#A78BFA;
-
+      --tap: 48px;
       --r14:14px;
       --r18:18px;
       --r22:22px;
-      --tap: 46px;
-
       --safeTop: env(safe-area-inset-top, 0px);
       --safeBot: env(safe-area-inset-bottom, 0px);
       --safeL: env(safe-area-inset-left, 0px);
       --safeR: env(safe-area-inset-right, 0px);
-
       color-scheme: dark;
     }
-
     *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
     html,body{ height:100%; }
     body{
@@ -45,24 +39,18 @@
       font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
       color: var(--txt);
       background:
-        radial-gradient(900px 650px at 18% 10%, rgba(85,215,255,.13), transparent 60%),
-        radial-gradient(900px 650px at 82% 18%, rgba(61,255,182,.10), transparent 60%),
-        radial-gradient(900px 900px at 50% 110%, rgba(255,215,106,.08), transparent 60%),
+        radial-gradient(900px 700px at 18% 10%, rgba(85,215,255,.13), transparent 60%),
+        radial-gradient(900px 700px at 82% 18%, rgba(61,255,182,.10), transparent 60%),
+        radial-gradient(1000px 900px at 50% 115%, rgba(255,215,106,.08), transparent 60%),
         linear-gradient(180deg,var(--bg0),var(--bg1));
       overflow-x:hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-
-    /* لایه‌های تزئینی نباید کلیک بدزدن */
-    .fx,.glow,.scan{ pointer-events:none !important; }
-
-    a,button,.btn,.chip,.tab,.pill,.navBtn,.listBtn,.choice{ pointer-events:auto; touch-action: manipulation; }
-
     .wrap{
-      max-width: 1080px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: calc(12px + var(--safeTop)) calc(12px + var(--safeR)) calc(96px + var(--safeBot)) calc(12px + var(--safeL));
+      padding: calc(12px + var(--safeTop)) calc(12px + var(--safeR)) calc(92px + var(--safeBot)) calc(12px + var(--safeL));
     }
 
     /* ===== Topbar ===== */
@@ -71,17 +59,16 @@
       top:0;
       z-index:60;
       padding-top: var(--safeTop);
-      margin: 0 calc(-12px - var(--safeR)) 12px calc(-12px - var(--safeL));
-      padding-left: calc(12px + var(--safeL));
-      padding-right: calc(12px + var(--safeR));
-      padding-bottom: 10px;
-      background: rgba(6,9,16,.78);
+      background: rgba(5,7,13,.78);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255,255,255,.08);
     }
-
-    .topRow{ display:flex; align-items:center; gap:10px; padding: 10px 0 8px; }
-
+    .topbar .inner{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px calc(12px + var(--safeR)) 10px calc(12px + var(--safeL));
+      display:flex; gap:10px; align-items:center;
+    }
     .logo{
       width:46px;height:46px;border-radius:18px;
       display:grid;place-items:center;
@@ -90,48 +77,23 @@
         radial-gradient(120% 120% at 30% 30%, rgba(85,215,255,.22), rgba(61,255,182,.12)),
         linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
       box-shadow: 0 0 0 1px rgba(0,0,0,.25) inset, 0 18px 60px rgba(0,0,0,.35);
-      font-size: 18px;
       user-select:none;
+      font-size:18px;
     }
-
     .brand{ flex:1; min-width:0; }
-    .brand h1{
-      margin:0;
+    .brand b{
+      display:block;
       font-size: 15px;
       font-weight: 950;
       white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-      letter-spacing: .1px;
     }
-    .brand p{
-      margin:4px 0 0;
-      font-size:12px;
+    .brand span{
+      display:block;
+      margin-top:4px;
+      font-size: 12px;
       color: var(--muted);
       white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     }
-
-    .pill{
-      display:flex; align-items:center; gap:8px;
-      padding: 10px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      user-select:none;
-      font-size:12px;
-      font-weight:950;
-      color: rgba(236,243,255,.88);
-      box-shadow: 0 12px 40px rgba(0,0,0,.25);
-      white-space:nowrap;
-    }
-    .dot{
-      width:10px;height:10px;border-radius:50%;
-      background: var(--ok);
-      box-shadow: 0 0 0 4px rgba(61,255,182,.12), 0 0 24px rgba(61,255,182,.25);
-    }
-
-    .searchRow{
-      display:flex; align-items:center; gap:10px;
-    }
-
     .iconBtn{
       height: var(--tap);
       min-width: var(--tap);
@@ -146,6 +108,13 @@
     }
     .iconBtn:active{ transform: scale(.98); }
 
+    /* ===== Search ===== */
+    .searchRow{
+      max-width:1100px;
+      margin: 0 auto;
+      padding: 0 calc(12px + var(--safeR)) 12px calc(12px + var(--safeL));
+      display:flex; gap:10px; align-items:center;
+    }
     .search{
       flex:1;
       height: var(--tap);
@@ -165,8 +134,27 @@
       font-size: 14px;
     }
     .search input::placeholder{ color: rgba(236,243,255,.45); }
+    .pill{
+      display:flex; align-items:center; gap:8px;
+      height: var(--tap);
+      padding: 0 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      font-size: 12px;
+      font-weight: 950;
+      color: rgba(236,243,255,.90);
+      user-select:none;
+      white-space:nowrap;
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 4px rgba(61,255,182,.12), 0 0 24px rgba(61,255,182,.25);
+    }
 
-    /* ===== Cards ===== */
+    /* ===== Cards / list ===== */
     .grid{ display:grid; gap:10px; }
     .card{
       border-radius: var(--r22);
@@ -176,43 +164,88 @@
       overflow:hidden;
       position:relative;
     }
-    .card::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(400px 150px at 20% 10%, rgba(85,215,255,.10), transparent 70%),
-                  radial-gradient(400px 150px at 80% 30%, rgba(61,255,182,.08), transparent 70%);
-      pointer-events:none;
-      filter: blur(0px);
-      opacity:.85;
-    }
-    .pad{ padding: 14px; position:relative; z-index:1; }
-
+    .pad{ padding: 14px; }
     .divider{ height:1px; background: rgba(255,255,255,.08); }
 
-    h2,h3{ margin:0 0 8px; }
-    h2{ font-size: 16px; font-weight: 950; }
-    h3{ font-size: 14px; font-weight: 950; color: rgba(236,243,255,.95); }
-    p{ margin:0; color: rgba(236,243,255,.80); font-size: 13px; line-height: 1.95; }
-    ul{ margin:8px 0 0; padding:0 18px 0 0; color: rgba(236,243,255,.84); font-size: 13px; line-height: 2.0; }
-    li{ margin:2px 0; }
-
-    .note{
-      margin-top: 10px;
-      padding: 12px;
-      border-radius: 18px;
-      border:1px dashed rgba(85,215,255,.26);
-      background: rgba(85,215,255,.06);
-      color: rgba(236,243,255,.88);
-      font-size: 13px;
-      line-height: 1.9;
+    .listBtn{
+      width:100%;
+      border:0;
+      background: transparent;
+      color: var(--txt);
+      padding: 14px 14px;
+      display:flex; align-items:center; gap:12px;
+      cursor:pointer;
+      text-align:right;
     }
-    .note.ok{ border-color: rgba(61,255,182,.26); background: rgba(61,255,182,.06); }
-    .note.warn{ border-color: rgba(255,93,115,.30); background: rgba(255,93,115,.06); }
-    .note.gold{ border-color: rgba(255,215,106,.28); background: rgba(255,215,106,.06); }
-    .note.purple{ border-color: rgba(167,139,250,.30); background: rgba(167,139,250,.07); }
+    .listBtn:hover{ background: rgba(255,255,255,.02); }
+    .listBtn:active{ transform: scale(.997); }
 
+    .badge{
+      width:38px;height:38px;border-radius:14px;
+      display:grid;place-items:center;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+      flex:0 0 auto;
+      user-select:none;
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+    }
+    .meta{ flex:1; min-width:0; }
+    .meta .t{
+      font-weight: 950;
+      font-size: 14px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .meta .d{
+      margin-top:5px;
+      color: var(--muted);
+      font-size: 12px;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .status{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      font-size: 12px;
+      color: var(--muted2);
+      white-space:nowrap;
+    }
+    .status.ok{ color: rgba(61,255,182,.95); border-color: rgba(61,255,182,.22); background: rgba(61,255,182,.08); }
+    .status.todo{ color: rgba(255,215,106,.95); border-color: rgba(255,215,106,.22); background: rgba(255,215,106,.08); }
+
+    /* ===== Progress ===== */
+    .progressTop{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .chips{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    .chip{
+      padding: 7px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      font-size: 12px;
+      color: var(--muted);
+      user-select:none;
+      white-space:nowrap;
+    }
+    .chip strong{ color: var(--txt); }
+    .bar{
+      height:10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+      margin-top:10px;
+    }
+    .bar i{
+      display:block;
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(85,215,255,.95), rgba(61,255,182,.95), rgba(255,215,106,.92));
+      box-shadow: 0 0 28px rgba(85,215,255,.22);
+      transition: width .28s ease;
+    }
+
+    /* ===== Buttons ===== */
     .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
-
     .btn{
       height: var(--tap);
       padding: 0 14px;
@@ -231,126 +264,64 @@
     .btn.gold{ border-color: rgba(255,215,106,.28); background: rgba(255,215,106,.09); }
     .btn.purple{ border-color: rgba(167,139,250,.30); background: rgba(167,139,250,.10); }
 
-    /* ===== Progress ===== */
-    .progressTop{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
+    /* ===== Page Overlay (this is the “new page”) ===== */
+    .page{
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      background:
+        radial-gradient(900px 700px at 22% 12%, rgba(85,215,255,.12), transparent 60%),
+        radial-gradient(900px 700px at 84% 18%, rgba(61,255,182,.10), transparent 60%),
+        linear-gradient(180deg, rgba(5,7,13,.98), rgba(10,17,32,.98));
+      transform: translateX(110%);
+      transition: transform .22s ease;
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+      padding: calc(12px + var(--safeTop)) calc(12px + var(--safeR)) calc(18px + var(--safeBot)) calc(12px + var(--safeL));
+      border-left: 1px solid rgba(255,255,255,.06);
     }
-    .chips{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
-    .chip{
-      padding: 7px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.14);
-      font-size: 12px;
-      color: var(--muted);
-      user-select:none;
-      white-space:nowrap;
+    .page.show{ transform: translateX(0); }
+    .pageInner{
+      max-width: 900px;
+      margin: 0 auto;
+      padding-bottom: 20px;
     }
-    .chip strong{ color: var(--txt); }
+    .pageTop{
+      display:flex; align-items:center; gap:10px;
+      margin-bottom: 12px;
+    }
+    .pageTitle{ flex:1; min-width:0; }
+    .pageTitle h2{ margin:0; font-size: 17px; font-weight: 950; }
+    .pageTitle p{ margin:6px 0 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
 
-    .bar{
-      height:10px;
-      border-radius:999px;
+    .contentCard{
+      border-radius: var(--r22);
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
       overflow:hidden;
-      margin-top:10px;
+      margin-top: 10px;
     }
-    .bar i{
-      display:block;
-      height:100%;
-      width:0%;
-      background: linear-gradient(90deg, rgba(85,215,255,.95), rgba(61,255,182,.95), rgba(255,215,106,.92));
-      box-shadow: 0 0 28px rgba(85,215,255,.22);
-      transition: width .28s ease;
-    }
+    .contentPad{ padding: 14px; }
+    h3{ margin: 0 0 8px; font-size: 14px; font-weight: 950; }
+    p{ margin:0; color: rgba(236,243,255,.82); font-size: 13px; line-height: 1.95; }
+    ul{ margin:8px 0 0; padding:0 18px 0 0; color: rgba(236,243,255,.84); font-size: 13px; line-height: 2.0; }
+    li{ margin:2px 0; }
 
-    /* ===== List buttons ===== */
-    .listBtn{
-      width:100%;
-      border:0;
-      background: transparent;
-      color: var(--txt);
-      padding: 14px 14px;
-      display:flex; align-items:center; gap:12px;
-      cursor:pointer;
-      text-align:right;
-    }
-    .listBtn:hover{ background: rgba(255,255,255,.02); }
-    .listBtn:active{ transform: scale(.997); }
-
-    .badge{
-      width:36px;height:36px;border-radius:14px;
-      display:grid;place-items:center;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.16);
-      flex:0 0 auto;
-      user-select:none;
-      box-shadow: 0 14px 40px rgba(0,0,0,.25);
-    }
-    .meta{ flex:1; min-width:0; }
-    .meta .t{
-      margin:0;
-      font-weight: 950;
-      font-size: 14px;
-      display:flex; align-items:center; gap:8px;
-    }
-    .meta .d{
-      margin:5px 0 0;
-      color: var(--muted);
-      font-size: 12px;
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-    }
-
-    .status{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.14);
-      font-size: 12px;
-      color: var(--muted2);
-      white-space:nowrap;
-    }
-    .status.ok{ color: rgba(61,255,182,.95); border-color: rgba(61,255,182,.22); background: rgba(61,255,182,.08); }
-    .status.todo{ color: rgba(255,215,106,.95); border-color: rgba(255,215,106,.22); background: rgba(255,215,106,.08); }
-
-    /* ===== Detail ===== */
-    .detail{
-      border-top: 1px solid rgba(255,255,255,.08);
-      display:none;
-      animation: pop .18s ease;
-    }
-    .detail.show{ display:block; }
-    @keyframes pop { from{opacity:.0; transform: translateY(6px);} to{opacity:1; transform:none;} }
-
-    /* ===== Forms ===== */
-    label{ display:block; font-size: 12px; color: rgba(236,243,255,.70); margin-bottom:6px; }
-    input,select,textarea{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.16);
-      color: var(--txt);
-      outline:none;
-      font-size: 16px; /* iOS zoom fix */
-    }
-    textarea{ min-height: 110px; resize: vertical; }
-    .form2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px; }
-    @media (max-width:520px){ .form2{ grid-template-columns: 1fr; } }
-
-    .result{
+    .note{
       margin-top: 10px;
       padding: 12px;
       border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.16);
+      border:1px dashed rgba(85,215,255,.26);
+      background: rgba(85,215,255,.06);
       color: rgba(236,243,255,.90);
       font-size: 13px;
-      line-height: 1.95;
-      white-space: pre-wrap;
+      line-height: 1.9;
     }
+    .note.ok{ border-color: rgba(61,255,182,.26); background: rgba(61,255,182,.06); }
+    .note.warn{ border-color: rgba(255,93,115,.30); background: rgba(255,93,115,.06); }
+    .note.gold{ border-color: rgba(255,215,106,.28); background: rgba(255,215,106,.06); }
+    .note.purple{ border-color: rgba(167,139,250,.30); background: rgba(167,139,250,.07); }
 
     mark{
       background: rgba(255,215,106,.18);
@@ -360,17 +331,17 @@
       border-radius: 8px;
     }
 
-    /* ===== Bottom tabs ===== */
+    /* ===== Bottom quick nav ===== */
     .bottomNav{
       position: fixed;
       left:0; right:0; bottom:0;
       z-index: 70;
       padding: 10px calc(12px + var(--safeR)) calc(10px + var(--safeBot)) calc(12px + var(--safeL));
-      background: rgba(6,9,16,.82);
+      background: rgba(5,7,13,.82);
       backdrop-filter: blur(14px);
       border-top: 1px solid rgba(255,255,255,.08);
     }
-    .tabs{ display:flex; gap:10px; }
+    .tabs{ display:flex; gap:10px; max-width:1100px; margin: 0 auto; }
     .tab{
       flex:1;
       height: 46px;
@@ -395,7 +366,7 @@
       left: 50%;
       bottom: calc(86px + var(--safeBot));
       transform: translateX(-50%) translateY(10px);
-      z-index: 90;
+      z-index: 200;
       padding: 12px 14px;
       border-radius: 18px;
       border:1px solid rgba(255,255,255,.14);
@@ -413,7 +384,6 @@
     }
     .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
 
-    /* Desktop enhancement */
     @media (min-width: 920px){
       .wrap{ padding-bottom: 22px; }
       .bottomNav{ display:none; }
@@ -425,26 +395,23 @@
 
 <body>
   <header class="topbar">
-    <div class="wrap" style="padding-bottom:0">
-      <div class="topRow">
-        <div class="logo">♠️</div>
-        <div class="brand">
-          <h1>پوکر از مبتدی تا حرفه‌ای (Mobile-First)</h1>
-          <p>همه چیز ساده، قابل فهم، با مثال + واژه‌نامه + تمرین ✅</p>
-        </div>
-        <div class="pill" title="ذخیره روشن است">
-          <span class="dot"></span>
-          <span id="saveText">ذخیره: فعال</span>
-        </div>
+    <div class="inner">
+      <div class="logo">♠️</div>
+      <div class="brand">
+        <b>Poker Master — آموزش کامل پوکر</b>
+        <span>کلیک کن = صفحه جدید باز میشه ✅ (بدون اسکرولِ مسخره)</span>
       </div>
+      <button class="iconBtn" id="resetBtn" type="button" title="ریست پیشرفت">↺</button>
+    </div>
 
-      <div class="searchRow">
-        <button class="iconBtn" id="resetBtn" type="button" title="ریست پیشرفت">↺</button>
-        <div class="search">
-          <span style="opacity:.85">🔎</span>
-          <input id="q" type="search" inputmode="search" placeholder="جستجو… مثلا: کال، ریز، بلوف، پوزیشن، پات آدز، رنج" />
-        </div>
-        <button class="iconBtn" id="helpBtn" type="button" title="راهنما">?</button>
+    <div class="searchRow">
+      <div class="search">
+        <span style="opacity:.85">🔎</span>
+        <input id="q" type="search" inputmode="search" placeholder="جستجو… مثلا: کال، ریز، بلوف، پوزیشن، پات آدز" />
+      </div>
+      <div class="pill" title="ذخیره روشن است">
+        <span class="dot"></span>
+        <span id="saveText">ذخیره: فعال</span>
       </div>
     </div>
   </header>
@@ -452,13 +419,12 @@
   <main class="wrap">
     <div class="grid">
 
-      <!-- Progress -->
       <section class="card">
         <div class="pad">
           <div class="progressTop">
-            <b>پیشرفت توی مسیر حرفه‌ای شدن 😈</b>
+            <b>پیشرفت 😈</b>
             <div class="chips">
-              <span class="chip"><strong id="doneCount">0</strong> تیک خورده</span>
+              <span class="chip"><strong id="doneCount">0</strong> تیک</span>
               <span class="chip"><strong id="totalCount">0</strong> کل</span>
               <span class="chip"><strong id="pct">0%</strong></span>
             </div>
@@ -466,120 +432,122 @@
           <div class="bar"><i id="bar"></i></div>
 
           <div class="actions">
-            <button class="btn good" id="markBtn" type="button">✅ این بخش رو یاد گرفتم</button>
+            <button class="btn good" id="markBtn" type="button">✅ این صفحه رو یاد گرفتم</button>
             <button class="btn danger" id="resetAllBtn" type="button">ریست کامل</button>
-            <button class="btn gold" id="quickPlanBtn" type="button">📌 پلن سریع ۷ روزه</button>
+            <button class="btn gold" id="planBtn" type="button">📌 پلن ۷ روزه</button>
           </div>
 
           <div class="note ok">
-            ✅ همه چیز روی گوشی ذخیره میشه (بدون لاگین). هر وقت باز کنی ادامه میدی.
+            ✅ کلیک‌ها ۱۰۰٪ کار می‌کنن چون صفحه‌ها “Overlay” هستن و چیزی روی دکمه‌ها نمی‌افته.
           </div>
         </div>
       </section>
 
-      <!-- Sections list -->
-      <section class="card" id="sectionsCard">
-        <button class="listBtn" type="button" data-open="start">
+      <section class="card">
+        <button class="listBtn" type="button" data-page="start">
           <span class="badge">🚀</span>
           <span class="meta">
-            <span class="t">شروع خیلی ساده (مبتدی کامل) <span class="status todo" data-status="start">درحال</span></span>
-            <span class="d">اگر هیچی نمی‌دونی از اینجا شروع کن</span>
+            <span class="t">شروع خیلی ساده <span class="status todo" data-status="start">درحال</span></span>
+            <span class="d">اگه هیچی نمی‌دونی از اینجا</span>
           </span>
         </button>
         <div class="divider"></div>
 
-        <button class="listBtn" type="button" data-open="levels">
-          <span class="badge">🧭</span>
-          <span class="meta">
-            <span class="t">مسیر یادگیری: مبتدی → حرفه‌ای <span class="status todo" data-status="levels">درحال</span></span>
-            <span class="d">قدم به قدم تا جایی که ترسناک شی 😎</span>
-          </span>
-        </button>
-        <div class="divider"></div>
-
-        <button class="listBtn" type="button" data-open="rules">
+        <button class="listBtn" type="button" data-page="rules">
           <span class="badge">📌</span>
           <span class="meta">
-            <span class="t">قوانین + دست‌ها (رتبه‌بندی) <span class="status todo" data-status="rules">درحال</span></span>
-            <span class="d">فقط همین رو بلد باشی بازی رو می‌فهمی</span>
+            <span class="t">قوانین + دست‌ها <span class="status todo" data-status="rules">درحال</span></span>
+            <span class="d">رتبه‌بندی دست‌ها و مراحل بازی</span>
           </span>
         </button>
         <div class="divider"></div>
 
-        <button class="listBtn" type="button" data-open="simpleWords">
+        <button class="listBtn" type="button" data-page="terms-basic">
           <span class="badge">🗣️</span>
           <span class="meta">
-            <span class="t">ترجمه ساده اصطلاحات بازی <span class="status todo" data-status="simpleWords">درحال</span></span>
-            <span class="d">کال/ریز/چک/پات/بلایند/آل‌این…</span>
+            <span class="t">اصطلاحات پایه <span class="status todo" data-status="terms-basic">درحال</span></span>
+            <span class="d">کال/ریز/چک/فولد/پات…</span>
           </span>
         </button>
         <div class="divider"></div>
 
-        <button class="listBtn" type="button" data-open="positions">
+        <button class="listBtn" type="button" data-page="positions">
           <span class="badge">🪑</span>
           <span class="meta">
-            <span class="t">پوزیشن (مهم‌ترین راز پوکر) <span class="status todo" data-status="positions">درحال</span></span>
-            <span class="d">چرا دکمه (BTN) سلطانِ میزِه؟</span>
+            <span class="t">پوزیشن <span class="status todo" data-status="positions">درحال</span></span>
+            <span class="d">BTN چرا خدای میزِه؟</span>
           </span>
         </button>
         <div class="divider"></div>
 
-        <button class="listBtn" type="button" data-open="preflop">
+        <button class="listBtn" type="button" data-page="preflop-101">
           <span class="badge">🧠</span>
           <span class="meta">
-            <span class="t">پریفلاپ (قبل فلاپ) <span class="status todo" data-status="preflop">درحال</span></span>
-            <span class="d">کی ریز کنیم؟ کی فولد؟ کی کال؟</span>
+            <span class="t">پریفلاپ ۱۰۱ <span class="status todo" data-status="preflop-101">درحال</span></span>
+            <span class="d">ریزه یا فولد؟ سایزها و اشتباهات</span>
           </span>
         </button>
+
         <div class="divider"></div>
 
-        <button class="listBtn" type="button" data-open="postflop">
+        <button class="listBtn" type="button" data-page="postflop-value">
           <span class="badge">🎯</span>
           <span class="meta">
-            <span class="t">پست‌فلاپ (بعد فلاپ) <span class="status todo" data-status="postflop">درحال</span></span>
-            <span class="d">Value/Bluff با مثال واقعی</span>
+            <span class="t">پست‌فلاپ: Value <span class="status todo" data-status="postflop-value">درحال</span></span>
+            <span class="d">شرط درست برای پول گرفتن</span>
           </span>
         </button>
+
         <div class="divider"></div>
 
-        <button class="listBtn" type="button" data-open="math">
+        <button class="listBtn" type="button" data-page="postflop-bluff">
+          <span class="badge">🃏</span>
+          <span class="meta">
+            <span class="t">پست‌فلاپ: Bluff <span class="status todo" data-status="postflop-bluff">درحال</span></span>
+            <span class="d">چطور بلوف واقعی بزنیم (نه شانسی)</span>
+          </span>
+        </button>
+
+        <div class="divider"></div>
+
+        <button class="listBtn" type="button" data-page="math-odds">
           <span class="badge">🧮</span>
           <span class="meta">
-            <span class="t">ماشین‌حساب‌ها (خیلی ساده) <span class="status todo" data-status="math">درحال</span></span>
-            <span class="d">Pot Odds / Outs / EV / Bet Sizing</span>
+            <span class="t">ریاضی ساده (Odds/Outs) <span class="status todo" data-status="math-odds">درحال</span></span>
+            <span class="d">قانون ۲ و ۴ + پات آدز</span>
           </span>
         </button>
+
         <div class="divider"></div>
 
-        <button class="listBtn" type="button" data-open="quiz">
-          <span class="badge">✅</span>
-          <span class="meta">
-            <span class="t">کوییز (سوال تستی) <span class="status todo" data-status="quiz">درحال</span></span>
-            <span class="d">ببین واقعاً فهمیدی یا نه 😈</span>
-          </span>
-        </button>
-        <div class="divider"></div>
-
-        <button class="listBtn" type="button" data-open="trainer">
-          <span class="badge">🎮</span>
-          <span class="meta">
-            <span class="t">تمرین سناریویی <span class="status todo" data-status="trainer">درحال</span></span>
-            <span class="d">تو انتخاب می‌کنی، بعد تحلیل می‌گیری</span>
-          </span>
-        </button>
-        <div class="divider"></div>
-
-        <button class="listBtn" type="button" data-open="glossary">
+        <button class="listBtn" type="button" data-page="glossary">
           <span class="badge">📚</span>
           <span class="meta">
-            <span class="t">واژه‌نامه حرفه‌ای (کامل) <span class="status todo" data-status="glossary">درحال</span></span>
-            <span class="d">هر اصطلاحی دیدی معنی‌ش اینجاست</span>
+            <span class="t">واژه‌نامه کامل <span class="status todo" data-status="glossary">درحال</span></span>
+            <span class="d">هر اصطلاحی دیدی، معنی‌ش اینجاست</span>
           </span>
         </button>
 
-        <div class="detail" id="detail">
-          <div class="pad" id="detailBody"></div>
-        </div>
+        <div class="divider"></div>
+
+        <button class="listBtn" type="button" data-page="bankroll">
+          <span class="badge">💰</span>
+          <span class="meta">
+            <span class="t">مدیریت سرمایه <span class="status todo" data-status="bankroll">درحال</span></span>
+            <span class="d">چجوری نابود نشیم؟</span>
+          </span>
+        </button>
+
+        <div class="divider"></div>
+
+        <button class="listBtn" type="button" data-page="tilt">
+          <span class="badge">😤</span>
+          <span class="meta">
+            <span class="t">کنترل تیلت <span class="status todo" data-status="tilt">درحال</span></span>
+            <span class="d">چطور عصبی نشیم و خراب نکنیم</span>
+          </span>
+        </button>
+
       </section>
 
     </div>
@@ -587,25 +555,52 @@
 
   <footer class="bottomNav">
     <div class="tabs">
-      <button class="tab on" type="button" data-tab="learn">📖 یادگیری</button>
-      <button class="tab" type="button" data-tab="math">🧮 حساب</button>
-      <button class="tab" type="button" data-tab="quiz">✅ کوییز</button>
+      <button class="tab on" type="button" data-tab="home">🏠 خانه</button>
+      <button class="tab" type="button" data-tab="learn">📖 یادگیری</button>
+      <button class="tab" type="button" data-tab="pro">😈 حرفه‌ای</button>
     </div>
   </footer>
+
+  <!-- Page Overlay -->
+  <section class="page" id="page">
+    <div class="pageInner">
+      <div class="pageTop">
+        <button class="iconBtn" id="backBtn" type="button" title="بازگشت">←</button>
+        <div class="pageTitle">
+          <h2 id="pageH">—</h2>
+          <p id="pageSub">—</p>
+        </div>
+        <button class="iconBtn" id="copyLinkBtn" type="button" title="کپی لینک">⎘</button>
+      </div>
+
+      <div class="contentCard">
+        <div class="contentPad" id="pageBody"></div>
+      </div>
+
+      <div class="contentCard">
+        <div class="contentPad">
+          <div class="actions">
+            <button class="btn good" id="markInsideBtn" type="button">✅ این صفحه رو یاد گرفتم</button>
+            <button class="btn gold" id="nextBtn" type="button">بعدی ▶</button>
+            <button class="btn purple" id="prevBtn" type="button">◀ قبلی</button>
+          </div>
+
+          <div class="note ok">
+            ✅ اینجا دقیقاً “صفحه جدید”ه. هر کلیک، این صفحه رو باز می‌کنه و از بالا شروع میشه.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <div class="toast" id="toast"></div>
 
   <script>
-    /********************
-     * Utilities
-     ********************/
     const $ = (s, el=document)=>el.querySelector(s);
     const $$ = (s, el=document)=>[...el.querySelectorAll(s)];
-    const LS = {
-      prog: "poker_master_prog_v2",
-      quiz: "poker_master_quiz_v2",
-      notes: "poker_master_notes_v2"
-    };
+
+    const LS = { prog: "poker_master_pages_prog_v3" };
 
     function toast(msg){
       const t = $("#toast");
@@ -623,525 +618,171 @@
     }
     function save(key, obj){ localStorage.setItem(key, JSON.stringify(obj)); }
 
-    /********************
-     * Sections
-     ********************/
-    const sections = [
-      {id:"start", title:"شروع خیلی ساده"},
-      {id:"levels", title:"مسیر یادگیری"},
-      {id:"rules", title:"قوانین + دست‌ها"},
-      {id:"simpleWords", title:"ترجمه ساده اصطلاحات"},
-      {id:"positions", title:"پوزیشن"},
-      {id:"preflop", title:"پریفلاپ"},
-      {id:"postflop", title:"پست‌فلاپ"},
-      {id:"math", title:"ماشین‌حساب"},
-      {id:"quiz", title:"کوییز"},
-      {id:"trainer", title:"تمرین"},
-      {id:"glossary", title:"واژه‌نامه کامل"},
-    ];
-
-    const content = {
-      start: `
-        <h2>شروع خیلی ساده 😄</h2>
-        <p>اگه تازه‌کاری، این ۶ تا رو یاد بگیری، بازی رو می‌فهمی:</p>
+    // Pages (این ساختار باعث میشه “صفحات بسیار زیاد” راحت اضافه بشه)
+    const PAGES = [
+      { id:"start", icon:"🚀", title:"شروع خیلی ساده", sub:"اگه تازه‌کاری از اینجا شروع کن", body:`
+        <h3>۶ چیز که باید بلد باشی</h3>
         <ul>
-          <li><b>هدف بازی:</b> یا بهترین دست رو بسازی، یا با شرط‌ها بقیه رو مجبور کنی فولد کنن.</li>
-          <li><b>هر نفر ۲ کارت مخفی</b> می‌گیره + <b>۵ کارت وسط</b> (مشترک).</li>
+          <li><b>هدف:</b> بهترین دست یا فولد گرفتن.</li>
+          <li><b>۲ کارت دست</b> + <b>۵ کارت وسط</b>.</li>
           <li><b>بهترین ۵ کارت</b> از بین ۷ کارت حساب میشه.</li>
-          <li><b>حرکت‌ها:</b> چک (Check)، شرط (Bet)، کال (Call)، ریز (Raise)، فولد (Fold).</li>
-          <li><b>مراحل:</b> Preflop → Flop → Turn → River</li>
-          <li><b>پوزیشن مهمه:</b> هرچی دیرتر تصمیم بگیری بهتره (اطلاعات بیشتر داری).</li>
+          <li>حرکت‌ها: Check / Bet / Call / Raise / Fold</li>
+          <li>مراحل: Preflop → Flop → Turn → River</li>
+          <li>پوزیشن = اطلاعات بیشتر = تصمیم بهتر</li>
         </ul>
-        <div class="note ok">
-          ✅ پوکر فقط “شانس” نیست. پوکر بازی تصمیم‌های تکراریه: تصمیم درست = پول در بلندمدت.
-        </div>
-        <div class="actions">
-          <button class="btn primary" type="button" data-jump="rules">برو قوانین و دست‌ها</button>
-          <button class="btn" type="button" data-jump="simpleWords">اول اصطلاحات ساده</button>
-        </div>
-      `,
+        <div class="note ok">✅ پوکر بازی تصمیم‌های تکراریه. تصمیم درست = سود در بلندمدت.</div>
+      `},
 
-      levels: `
-        <h2>مسیر یادگیری: مبتدی → حرفه‌ای 🧭</h2>
-
-        <h3>سطح ۱: مبتدی (فقط بفهم چی به چیه)</h3>
+      { id:"rules", icon:"📌", title:"قوانین + دست‌ها", sub:"رتبه‌بندی دست‌ها و مراحل بازی", body:`
+        <h3>مراحل</h3>
         <ul>
-          <li>قوانین و رتبه دست‌ها</li>
-          <li>اصطلاحات پایه (کال/ریز/چک/پات…)</li>
-          <li>پوزیشن (BTN/CO/…)</li>
+          <li>Preflop: دو کارت</li>
+          <li>Flop: سه کارت وسط</li>
+          <li>Turn: کارت چهارم</li>
+          <li>River: کارت پنجم</li>
         </ul>
-
-        <h3>سطح ۲: متوسط (شروع پول درآوردن)</h3>
-        <ul>
-          <li>پریفلاپ استاندارد: کی ریز، کی فولد</li>
-          <li>اشتباهات رایج: کال زیاد، لیمپ زیاد</li>
-          <li>Pot Odds و Outs خیلی ساده</li>
-        </ul>
-
-        <h3>سطح ۳: حرفه‌ای (ترسناک 😈)</h3>
-        <ul>
-          <li>Value/Bluff با “داستان”</li>
-          <li>پلن برای ترن و ریور</li>
-          <li>ریڈ روی آدم‌ها (تیپ حریف)</li>
-          <li>مدیریت سرمایه + کنترل تیلت</li>
-        </ul>
-
-        <div class="note gold">
-          🎯 قانون طلایی حرفه‌ای‌ها: <b>قبل شرط کردن بگو اگر کال شد چی کار می‌کنم؟</b>
-        </div>
-
-        <div class="actions">
-          <button class="btn primary" type="button" data-jump="positions">برو پوزیشن</button>
-          <button class="btn purple" type="button" data-jump="trainer">تمرین سناریویی</button>
-        </div>
-      `,
-
-      rules: `
-        <h2>قوانین + دست‌ها 📌</h2>
-        <p>در پوکر، “بهترین دست ۵ کارتی” برنده میشه.</p>
-
-        <h3>مراحل بازی</h3>
-        <ul>
-          <li><b>Preflop:</b> فقط دو کارت دستته</li>
-          <li><b>Flop:</b> سه کارت وسط باز میشه</li>
-          <li><b>Turn:</b> کارت چهارم وسط</li>
-          <li><b>River:</b> کارت پنجم وسط</li>
-        </ul>
-
         <h3>رتبه دست‌ها (قوی → ضعیف)</h3>
         <ul>
-          <li><b>Straight Flush</b> (مثل 9♠10♠J♠Q♠K♠)</li>
-          <li><b>Four of a Kind</b> (چهارتایی)</li>
-          <li><b>Full House</b> (تری + جفت)</li>
-          <li><b>Flush</b> (۵ کارت هم‌خال)</li>
-          <li><b>Straight</b> (۵ کارت پشت سر هم)</li>
-          <li><b>Three of a Kind</b> (سه‌تایی)</li>
-          <li><b>Two Pair</b> (دو جفت)</li>
-          <li><b>One Pair</b> (یک جفت)</li>
-          <li><b>High Card</b> (بالاترین کارت)</li>
+          <li>Straight Flush</li><li>Four of a Kind</li><li>Full House</li><li>Flush</li>
+          <li>Straight</li><li>Three of a Kind</li><li>Two Pair</li><li>One Pair</li><li>High Card</li>
         </ul>
+        <div class="note warn">🚫 اشتباه رایج: جفت دارم پس قویه! نه… به برد نگاه کن.</div>
+      `},
 
-        <div class="note warn">
-          🚫 اشتباه رایج مبتدی‌ها: “جفت دارم پس قویه!”  
-          نه داداش… باید ببینی روی برد چی اومده و حریف چی می‌تونه داشته باشه.
-        </div>
-      `,
-
-      simpleWords: `
-        <h2>ترجمه خیلی ساده اصطلاحات بازی 🗣️</h2>
-        <p>اینا اون چیزاییه که سر میز همه میگن:</p>
-
+      { id:"terms-basic", icon:"🗣️", title:"اصطلاحات پایه", sub:"همه چیز خیلی ساده و قابل فهم", body:`
         <h3>حرکت‌ها</h3>
         <ul>
-          <li><b>Check (چک):</b> وقتی شرطی جلوت نیست، مجانی پاس میدی.</li>
-          <li><b>Bet (شرط):</b> پول میذاری وسط.</li>
-          <li><b>Call (کال):</b> همون مقدار شرط حریف رو میدی تا بمونی.</li>
-          <li><b>Raise (ریز):</b> شرط حریف رو بیشتر می‌کنی.</li>
-          <li><b>Fold (فولد):</b> کارت رو میندازی و دست رو می‌بازی.</li>
-          <li><b>All-in (آل‌این):</b> کل پولت رو میذاری وسط.</li>
+          <li><b>Check:</b> وقتی شرطی جلو نیست.</li>
+          <li><b>Bet:</b> شرط کردن.</li>
+          <li><b>Call:</b> همون مقدار شرط.</li>
+          <li><b>Raise:</b> بیشتر کردن شرط.</li>
+          <li><b>Fold:</b> انداختن کارت.</li>
+          <li><b>All-in:</b> همه پول.</li>
         </ul>
-
-        <h3>پول‌های اجباری</h3>
+        <h3>پول اجباری</h3>
         <ul>
-          <li><b>SB / BB:</b> دو نفر باید اجباری پول بذارن تا بازی راه بیفته.</li>
-          <li><b>Pot (پات):</b> کل پول وسط.</li>
+          <li><b>SB/BB:</b> دو بلایند.</li>
+          <li><b>Pot:</b> پول وسط.</li>
         </ul>
+        <div class="note ok">✅ همین‌ها رو بلد باشی، ۷۰٪ حرف‌های میز رو می‌فهمی.</div>
+      `},
 
-        <h3>چند تا اصطلاح مهم ولی ساده</h3>
+      { id:"positions", icon:"🪑", title:"پوزیشن", sub:"مهم‌ترین راز پوکر", body:`
+        <p>هرچی دیرتر تصمیم بگیری، اطلاعات بیشتری داری.</p>
         <ul>
-          <li><b>Kicker (کیکر):</b> کارت کمکی وقتی جفت یکیه (مثلاً AQ بهتر از AJ).</li>
-          <li><b>Draw (دراو):</b> هنوز دست کامل نداری ولی ممکنه کامل بشه (مثل فلاش‌دراو).</li>
-          <li><b>Value Bet:</b> شرط برای اینکه دست‌های بدتر ازت پول بدن.</li>
-          <li><b>Bluff:</b> شرط برای اینکه دست‌های بهتر فولد کنن.</li>
+          <li><b>BTN:</b> بهترین</li>
+          <li><b>CO:</b> خیلی خوب</li>
+          <li><b>UTG:</b> سخت (تنگ‌تر بازی کن)</li>
+          <li><b>SB/BB:</b> زیاد بیرون پوزیشن</li>
         </ul>
+        <div class="note gold">🎯 قانون: IP بهتر از OOP. بیرون پوزیشن کمتر کال کن.</div>
+      `},
 
-        <div class="note ok">
-          ✅ اگر فقط همین صفحه رو خوب بفهمی، ۷۰٪ حرف‌های میز رو می‌فهمی.
-        </div>
-
-        <div class="actions">
-          <button class="btn primary" type="button" data-jump="glossary">واژه‌نامه کامل</button>
-          <button class="btn" type="button" data-jump="preflop">بریم پریفلاپ</button>
-        </div>
-      `,
-
-      positions: `
-        <h2>پوزیشن (راز شماره ۱) 🪑</h2>
-        <p>پوزیشن یعنی “نوبت تصمیم گرفتن”. هرچی دیرتر تصمیم بگیری، اطلاعات بیشتری داری.</p>
-
-        <h3>پوزیشن‌های معروف</h3>
+      { id:"preflop-101", icon:"🧠", title:"پریفلاپ ۱۰۱", sub:"کِی ریز کنیم؟ کِی فولد؟", body:`
+        <h3>۳ قانون ساده</h3>
         <ul>
-          <li><b>BTN (دکمه):</b> بهترین جای میز (آخر تصمیم میگیری)</li>
-          <li><b>CO:</b> قبل از BTN (خیلی خوب)</li>
-          <li><b>HJ:</b> وسط</li>
-          <li><b>UTG:</b> اول تصمیم (سخته، باید تنگ‌تر بازی کنی)</li>
-          <li><b>BB/SB:</b> بلایندها (اغلب بیرون پوزیشن هستی)</li>
+          <li>کمتر لیمپ کن → بیشتر Raise یا Fold</li>
+          <li>UTG تنگ‌تر، BTN بازتر</li>
+          <li>با دست بد “امید” بازی نکن</li>
         </ul>
-
-        <div class="note gold">
-          🎯 قانون طلایی: <b>IP (داخل پوزیشن)</b> آزادی بیشتری داری. <b>OOP (بیرون پوزیشن)</b> باید ساده‌تر و محتاط‌تر باشی.
-        </div>
-
-        <div class="note warn">
-          🚫 لیک معروف: بیرون پوزیشن زیاد کال کردن… یعنی پول دادن به حریف.
-        </div>
-      `,
-
-      preflop: `
-        <h2>پریفلاپ (قبل فلاپ) 🧠</h2>
-        <p>اینجا بیشترین پول بی‌دلیل می‌پره! پس قوانین ساده بده 👇</p>
-
-        <h3>۳ قانون ساده برای مبتدی‌ها</h3>
+        <h3>سایزها</h3>
         <ul>
-          <li><b>کمتر لیمپ کن</b> (لیمپ یعنی فقط کال بلایند) — بیشتر Raise یا Fold.</li>
-          <li>از UTG تنگ‌تر؛ از BTN/CO بازتر.</li>
-          <li>با دست‌های بد، “امید” بازی نکن. فولد حرفه‌ایه.</li>
+          <li>Open: 2x تا 3x</li>
+          <li>3Bet: حدود 3 برابر ریز حریف (OOP کمی بیشتر)</li>
         </ul>
+        <div class="note purple">🧩 نکته: دست خوب + پوزیشن خوب = اجازه بازی بیشتر.</div>
+      `},
 
-        <h3>سایزهای ساده</h3>
+      { id:"postflop-value", icon:"🎯", title:"پست‌فلاپ: Value", sub:"چطور پول بگیریم؟", body:`
+        <h3>Value Bet یعنی چی؟</h3>
+        <p>شرط می‌کنی که دست‌های بدتر ازت پول بدن.</p>
         <ul>
-          <li><b>Open Raise:</b> 2x تا 3x</li>
-          <li><b>3Bet:</b> حدود 3 برابر ریز حریف (OOP کمی بیشتر)</li>
+          <li>برد خشک → bet کوچک خیلی خوبه</li>
+          <li>برد خیس → محافظت بیشتر / پلن دقیق‌تر</li>
         </ul>
+        <div class="note gold">🎯 قبل شرط: اگر کال شد، ترن چی؟</div>
+      `},
 
-        <div class="note ok">
-          ✅ پلن ساده: اگر کارتت “خوب” نیست و پوزیشن بد هم هستی → فولد.
-        </div>
-
-        <div class="note purple">
-          🧩 مثال:
-          <br>روی BTN: AJs خوبه (کال/3بت)
-          <br>روی UTG: KJo اغلب بدردسر (اغلب فولد)
-        </div>
-      `,
-
-      postflop: `
-        <h2>پست‌فلاپ (بعد فلاپ) 🎯</h2>
-        <p>اینجا حرفه‌ای‌ها پول درمیارن. با این روش ساده جلو برو:</p>
-
-        <h3>اول مشخص کن: Value یا Bluff؟</h3>
+      { id:"postflop-bluff", icon:"🃏", title:"پست‌فلاپ: Bluff", sub:"بلوف واقعی نه شانسی", body:`
+        <h3>بلوف خوب ۳ شرط</h3>
         <ul>
-          <li><b>Value:</b> دستت خوبه، میخوای دست‌های بدتر پول بدن.</li>
-          <li><b>Bluff:</b> دستت خوب نیست، میخوای دست‌های بهتر فولد کنن.</li>
+          <li>داستان منطقی داشته باشه (رنجت با برد جور دربیاد)</li>
+          <li>حریف توان فولد داشته باشه</li>
+          <li>کارت‌های آینده به نفع تو باشن (barrel plan)</li>
         </ul>
+        <div class="note warn">🚫 آل‌این عصبی = تیلت = باخت سریع</div>
+      `},
 
-        <h3>قبل شرط کردن این ۳ سوال</h3>
+      { id:"math-odds", icon:"🧮", title:"Odds/Outs خیلی ساده", sub:"قانون ۲ و ۴ + پات آدز", body:`
+        <h3>قانون ۲ و ۴</h3>
         <ul>
-          <li>۱) اگر کال شد، ترن/ریور چی؟</li>
-          <li>۲) حریف با چی‌ها کال می‌کنه؟</li>
-          <li>۳) برد خشک یا خیسه؟</li>
+          <li>بعد فلاپ: Outs × 4 ≈ درصد تکمیل</li>
+          <li>بعد ترن: Outs × 2 ≈ درصد تکمیل</li>
         </ul>
+        <h3>Pot Odds</h3>
+        <p>اگر شانس بردت بیشتر از شانس لازم بود → کال منطقیه.</p>
+        <div class="note ok">✅ حرفه‌ای‌ها با این تصمیم‌ها پول درمیارن.</div>
+      `},
 
-        <div class="note gold">
-          🎯 برد خشک (Q-7-2): شرط کوچک معمولاً خوبه.  
-          برد خیس (J-10-9 دو‌خال): احتیاط + پلن دقیق‌تر.
-        </div>
-
-        <div class="note warn">
-          🚫 اشتباه رایج: “هر جا ترسیدم آل‌این!”  
-          آل‌این بدون دلیل = اتوبانِ باخت 😅
-        </div>
-      `,
-
-      math: `
-        <h2>ماشین‌حساب‌ها (خیلی ساده) 🧮</h2>
-        <p>نگران فرمول نباش. عددها رو بده، نتیجه رو بگیر ✅</p>
-
-        <div class="grid2">
-
-          <div class="card"><div class="pad">
-            <h3>Pot Odds (آیا کال خوبه؟)</h3>
-            <div class="form2">
-              <div><label>پات فعلی</label><input id="potNow" type="number" step="0.01" placeholder="مثلاً 10"></div>
-              <div><label>مبلغ کال</label><input id="callAmt" type="number" step="0.01" placeholder="مثلاً 6"></div>
-            </div>
-            <div class="form2">
-              <div><label>شانس برد شما (Equity %) </label><input id="eqPct" type="number" step="0.1" placeholder="مثلاً 35"></div>
-              <div><label>Implied (اختیاری)</label><input id="impl" type="number" step="0.01" placeholder="مثلاً 4"></div>
-            </div>
-            <div class="actions">
-              <button class="btn primary" type="button" id="potCalc">محاسبه</button>
-              <button class="btn" type="button" id="potDemo">نمونه</button>
-            </div>
-            <div class="result" id="potRes">نتیجه اینجا…</div>
-            <div class="note ok">
-              معنی ساده: اگر “Equity” تو بیشتر از “Equity لازم” بود → کال منطقیه.
-            </div>
-          </div></div>
-
-          <div class="card"><div class="pad">
-            <h3>Outs (قانون ۲ و ۴)</h3>
-            <div class="form2">
-              <div><label>Outs</label><input id="outs" type="number" step="1" placeholder="مثلاً 9"></div>
-              <div><label>مرحله</label>
-                <select id="street">
-                  <option value="flop">بعد فلاپ (۲ کارت مانده)</option>
-                  <option value="turn">بعد ترن (۱ کارت مانده)</option>
-                </select>
-              </div>
-            </div>
-            <div class="actions">
-              <button class="btn primary" type="button" id="outsCalc">محاسبه</button>
-              <button class="btn" type="button" id="outsDemo">نمونه</button>
-            </div>
-            <div class="result" id="outsRes">نتیجه اینجا…</div>
-            <div class="note gold">
-              قانون ساده:
-              <br>بعد فلاپ ≈ Outs × 4
-              <br>بعد ترن ≈ Outs × 2
-            </div>
-          </div></div>
-
-          <div class="card"><div class="pad">
-            <h3>EV کال (سود یا ضرر؟)</h3>
-            <p>EV مثبت یعنی در بلندمدت سود می‌کنی.</p>
-            <div class="form2">
-              <div><label>پات</label><input id="evPot" type="number" step="0.01" placeholder="مثلاً 12"></div>
-              <div><label>کال</label><input id="evCall" type="number" step="0.01" placeholder="مثلاً 8"></div>
-            </div>
-            <div class="form2">
-              <div><label>Equity (%)</label><input id="evEq" type="number" step="0.1" placeholder="مثلاً 38"></div>
-              <div><label>Rake/هزینه (اختیاری)</label><input id="evRake" type="number" step="0.01" placeholder="مثلاً 0.5"></div>
-            </div>
-            <div class="actions">
-              <button class="btn primary" type="button" id="evCalc">محاسبه</button>
-              <button class="btn" type="button" id="evDemo">نمونه</button>
-            </div>
-            <div class="result" id="evRes">نتیجه اینجا…</div>
-          </div></div>
-
-          <div class="card"><div class="pad">
-            <h3>Bet Sizing (چقدر شرط کنم؟)</h3>
-            <div class="form2">
-              <div><label>پات</label><input id="potSize" type="number" step="0.01" placeholder="مثلاً 24"></div>
-              <div><label>هدف</label>
-                <select id="goal">
-                  <option value="dry">برد خشک (سایز کوچک)</option>
-                  <option value="value">Value / Protection</option>
-                  <option value="polar">Polar (سایز بزرگ)</option>
-                </select>
-              </div>
-            </div>
-            <div class="actions">
-              <button class="btn primary" type="button" id="betCalc">پیشنهاد</button>
-              <button class="btn" type="button" id="betDemo">نمونه</button>
-            </div>
-            <div class="result" id="betRes">نتیجه اینجا…</div>
-          </div></div>
-
-        </div>
-      `,
-
-      quiz: `
-        <h2>کوییز (تستی) ✅</h2>
-        <p>سوال‌ها ساده‌ان ولی دقیق. بزن ببین چقدر فهمیدی 😈</p>
-
-        <div class="card"><div class="pad">
-          <h3>سوال ۱</h3>
-          <p>اگر توی دکمه (BTN) هستی، چرا مزیت داری؟</p>
-          <div class="actions" id="q1"></div>
-          <div class="result" id="q1r">—</div>
-        </div></div>
-
-        <div class="card"><div class="pad">
-          <h3>سوال ۲</h3>
-          <p>Value Bet یعنی چی؟</p>
-          <div class="actions" id="q2"></div>
-          <div class="result" id="q2r">—</div>
-        </div></div>
-
-        <div class="card"><div class="pad">
-          <h3>سوال ۳</h3>
-          <p>بعد فلاپ ۹ Outs داری. شانس تقریبی تکمیل در دو کارت آینده چقدره؟</p>
-          <div class="actions" id="q3"></div>
-          <div class="result" id="q3r">—</div>
-        </div></div>
-
-        <div class="note ok">
-          ✅ جواب‌هات ذخیره میشه. هر بار میای، می‌بینی چی‌ها رو زدی.
-        </div>
-      `,
-
-      trainer: `
-        <h2>تمرین سناریویی 🎮</h2>
-        <p>سناریو میاد، تو انتخاب می‌کنی، بعد تحلیل ساده می‌گیری.</p>
-
-        <div class="note gold">
-          🎯 قانون: اول تصمیم، بعد دلیل (پوزیشن / هدف / تیپ حریف / پلن).
-        </div>
-
-        <div class="card"><div class="pad">
-          <h3>سناریو</h3>
-          <div class="result" id="scText">روی “سناریوی جدید” بزن 😈</div>
-          <div class="actions" id="scChoices"></div>
-          <div class="actions">
-            <button class="btn primary" type="button" id="scNew">سناریوی جدید</button>
-            <button class="btn gold" type="button" id="scAns">پاسخ و تحلیل</button>
-          </div>
-          <div class="result" id="scExplain">—</div>
-        </div></div>
-      `,
-
-      glossary: `
-        <h2>واژه‌نامه کامل (همه اصطلاحات) 📚</h2>
-        <p>هرجا اصطلاح دیدی، اینجا معنی ساده‌ش هست:</p>
-
-        <h3>اصطلاحات پایه</h3>
+      { id:"glossary", icon:"📚", title:"واژه‌نامه کامل", sub:"هر اصطلاحی دیدی اینجاست", body:`
+        <h3>کلمات مهم</h3>
         <ul>
-          <li><b>Pot (پات):</b> پول وسط</li>
-          <li><b>SB/BB:</b> پول اجباری اول دست</li>
-          <li><b>Check/Bet/Call/Raise/Fold:</b> چک/شرط/کال/ریز/فولد</li>
-          <li><b>All-in:</b> همه پول</li>
-          <li><b>Kicker:</b> کارت کمکی وقتی جفت یکیه</li>
-        </ul>
-
-        <h3>اصطلاحات مربوط به دست و برد</h3>
-        <ul>
-          <li><b>Pair/Two Pair/Trips:</b> جفت/دو جفت/سه‌تایی</li>
-          <li><b>Straight/Flush:</b> پشت سرهم/هم‌خال</li>
-          <li><b>Draw:</b> دست ناقص که ممکنه کامل شه</li>
-          <li><b>Outs:</b> کارت‌هایی که دستت رو کامل می‌کنه</li>
-          <li><b>Equity:</b> شانس برد تقریبی</li>
-        </ul>
-
-        <h3>اصطلاحات پیشرفته (ولی توضیح ساده)</h3>
-        <ul>
-          <li><b>Range (رنج):</b> “همه دست‌های ممکن” که حریف می‌تونه داشته باشه</li>
-          <li><b>IP / OOP:</b> داخل پوزیشن / بیرون پوزیشن</li>
+          <li><b>Range:</b> دست‌های ممکن حریف</li>
+          <li><b>Equity:</b> شانس برد</li>
+          <li><b>EV:</b> سود بلندمدت</li>
+          <li><b>Fold Equity:</b> شانس فولد حریف</li>
           <li><b>C-bet:</b> شرط ادامه بعد از ریز پریفلاپ</li>
-          <li><b>Value Bet:</b> شرط برای گرفتن پول از دست‌های بدتر</li>
-          <li><b>Bluff:</b> شرط برای فولد گرفتن از دست‌های بهتر</li>
-          <li><b>Pot Odds:</b> نسبت مبلغ کال به پات (می‌فهمیم کال منطقیه یا نه)</li>
-          <li><b>EV:</b> سود/ضرر در بلندمدت</li>
-          <li><b>Fold Equity:</b> شانس اینکه حریف فولد کنه</li>
-          <li><b>Blocker:</b> کارتی که بعضی دست‌های قوی حریف رو کمتر می‌کنه</li>
+          <li><b>Blocker:</b> کارت‌هایی که بعضی دست‌های حریف رو کم می‌کنن</li>
         </ul>
+        <div class="note ok">✅ اگر رنج رو بفهمی، نصف راه حرفه‌ای شدنه.</div>
+      `},
 
-        <div class="note ok">
-          ✅ حرفه‌ای‌ها با رنج بازی می‌کنن نه با “یک دست”.
-        </div>
+      { id:"bankroll", icon:"💰", title:"مدیریت سرمایه", sub:"چطوری ورشکست نشیم؟", body:`
+        <h3>قانون ساده</h3>
+        <ul>
+          <li>هرگز با کل پولت بازی نکن.</li>
+          <li>برای سطحی بازی کن که باخت پشت سر هم نابودت نکنه.</li>
+          <li>اگر tilt شدی، استاپ کن.</li>
+        </ul>
+        <div class="note gold">🎯 آدم حرفه‌ای اول “زنده می‌مونه”، بعد پول درمیاره.</div>
+      `},
 
-        <div class="actions">
-          <button class="btn primary" type="button" data-jump="quiz">بزن کوییز</button>
-          <button class="btn purple" type="button" data-jump="trainer">بزن تمرین</button>
-        </div>
-      `
-    };
+      { id:"tilt", icon:"😤", title:"کنترل تیلت", sub:"وقتی عصبی میشی چی کار کنی؟", body:`
+        <h3>۳ حرکت فوری ضد تیلت</h3>
+        <ul>
+          <li>۵ دقیقه Break</li>
+          <li>کاهش تعداد دست‌ها (تنگ‌تر بازی کن)</li>
+          <li>اگر ۲ بار پشت سرهم اشتباه کردی → خروج</li>
+        </ul>
+        <div class="note warn">🚫 تیلت دشمن شماره ۱ پولته.</div>
+      `},
+    ];
 
-    /********************
-     * Rendering
-     ********************/
-    let current = "start";
-    const detail = $("#detail");
-    const detailBody = $("#detailBody");
+    const byId = Object.fromEntries(PAGES.map(p=>[p.id,p]));
+    const order = PAGES.map(p=>p.id);
 
-    function openSection(id){
-      current = id;
-      detailBody.innerHTML = content[id] || "<p>این بخش در حال تکمیل است…</p>";
-      detail.classList.add("show");
-      bindInnerActions();
-      updateMarkButton();
-      runSearch();
-      window.scrollTo({top:0, behavior:"smooth"});
-      toast("باز شد ✅");
-    }
-
-    function bindInnerActions(){
-      $$("[data-jump]").forEach(b=>{
-        b.addEventListener("click", ()=>openSection(b.dataset.jump));
-      });
-
-      // Quick Plan button modal-like toast
-      if($("#quickPlanBtn")){
-        $("#quickPlanBtn").onclick = ()=>{
-          toast("پلن ۷ روزه آماده شد ✅");
-          openSection("levels");
-        };
-      }
-
-      // Calculators
-      if(current==="math"){
-        const num = v => Number(v||0);
-        const pct = v => num(v)/100;
-        const fmt = n => (Math.round(n*100)/100).toLocaleString("en-US");
-
-        $("#potCalc").onclick = ()=>{
-          const pot = num($("#potNow").value);
-          const call = num($("#callAmt").value);
-          const eq = pct($("#eqPct").value);
-          const impl = num($("#impl").value);
-          const req = (call/(pot+call))*100;
-          const req2 = (call/(pot+call+impl))*100;
-          const ok1 = (eq*100)>=req;
-          const ok2 = (eq*100)>=req2;
-          $("#potRes").textContent =
-`Equity لازم (بدون implied): ${req.toFixed(1)}%
-Equity لازم (با implied): ${req2.toFixed(1)}%
-Equity شما: ${(eq*100).toFixed(1)}%
-
-نتیجه:
-${ok1 ? "✅ کال از نظر پات آدز قابل قبوله." : "🚫 کال از نظر پات آدز ضعیفه/مرزیه."}
-${impl>0 ? (ok2 ? "✅ با implied منطقی‌تر میشه." : "🚫 حتی با implied هم ضعیفه.") : ""}`;
-        };
-        $("#potDemo").onclick = ()=>{ $("#potNow").value=10; $("#callAmt").value=6; $("#eqPct").value=35; $("#impl").value=4; $("#potCalc").click(); };
-
-        $("#outsCalc").onclick = ()=>{
-          const o = num($("#outs").value);
-          const street = $("#street").value;
-          const chance = Math.min(street==="flop" ? o*4 : o*2, 100);
-          $("#outsRes").textContent =
-`Outs: ${o}
-مرحله: ${street==="flop" ? "بعد فلاپ" : "بعد ترن"}
-شانس تقریبی تکمیل: ≈ ${chance.toFixed(1)}%`;
-        };
-        $("#outsDemo").onclick = ()=>{ $("#outs").value=9; $("#street").value="flop"; $("#outsCalc").click(); };
-
-        $("#evCalc").onclick = ()=>{
-          const pot = num($("#evPot").value);
-          const call = num($("#evCall").value);
-          const eq = pct($("#evEq").value);
-          const rake = num($("#evRake").value);
-          const ev = eq*(pot+call) - (1-eq)*call - rake;
-          $("#evRes").textContent =
-`EV کال = ${fmt(ev)}
-${ev>0 ? "✅ مثبت (سودده در بلندمدت)" : "🚫 منفی (ضررده در بلندمدت)"}`;
-        };
-        $("#evDemo").onclick = ()=>{ $("#evPot").value=12; $("#evCall").value=8; $("#evEq").value=38; $("#evRake").value=0.5; $("#evCalc").click(); };
-
-        $("#betCalc").onclick = ()=>{
-          const pot = num($("#potSize").value);
-          const g = $("#goal").value;
-          let arr=[], why="";
-          if(g==="dry"){ arr=[.25,.33,.40]; why="برد خشک: سایز کوچک فشار میده، ریسک کم.";}
-          if(g==="value"){ arr=[.50,.66,.75]; why="Value/Protection: پول گرفتن + قیمت دادن به دراو.";}
-          if(g==="polar"){ arr=[.75,1.00,1.25]; why="Polar: یا خیلی قوی یا بلوف قوی.";}
-          $("#betRes").textContent =
-`پات: ${fmt(pot)}
-${arr.map(x=>`${Math.round(x*100)}% ≈ ${fmt(pot*x)}`).join("\n")}
-چرا؟ ${why}`;
-        };
-        $("#betDemo").onclick = ()=>{ $("#potSize").value=24; $("#goal").value="dry"; $("#betCalc").click(); };
-      }
-
-      // Quiz
-      if(current==="quiz"){
-        setupQuiz();
-      }
-
-      // Trainer
-      if(current==="trainer"){
-        $("#scNew").onclick = newScenario;
-        $("#scAns").onclick = revealScenario;
-        newScenario();
-      }
-    }
-
-    /********************
-     * Progress
-     ********************/
+    // Progress
     function getProg(){ return load(LS.prog, {}); }
     function setProg(p){ save(LS.prog, p); }
     function isDone(id){ const p=getProg(); return !!p[id]; }
+
+    function updateProgressUI(){
+      const p=getProg();
+      const total=order.length;
+      const done=order.filter(id=>p[id]).length;
+      $("#totalCount").textContent=total;
+      $("#doneCount").textContent=done;
+      const pct=Math.round((done/total)*100);
+      $("#pct").textContent=pct+"%";
+      $("#bar").style.width=pct+"%";
+      $$("[data-status]").forEach(el=>{
+        const id=el.dataset.status;
+        const ok=!!p[id];
+        el.textContent = ok ? "تیک" : "درحال";
+        el.classList.toggle("ok", ok);
+        el.classList.toggle("todo", !ok);
+      });
+    }
 
     function markDone(id){
       const p=getProg();
@@ -1150,48 +791,76 @@ ${arr.map(x=>`${Math.round(x*100)}% ≈ ${fmt(pot*x)}`).join("\n")}
       updateProgressUI();
       toast("تیک شد ✅");
     }
-    function resetProg(){
+
+    function resetAll(){
       localStorage.removeItem(LS.prog);
-      localStorage.removeItem(LS.quiz);
       updateProgressUI();
       toast("ریست شد 🧼");
     }
 
-    function updateProgressUI(){
-      const p=getProg();
-      const total=sections.length;
-      const done=sections.filter(s=>p[s.id]).length;
-      $("#totalCount").textContent=total;
-      $("#doneCount").textContent=done;
-      const pct=Math.round((done/total)*100);
-      $("#pct").textContent=pct+"%";
-      $("#bar").style.width=pct+"%";
+    // Overlay page
+    const pageEl = $("#page");
+    const pageH = $("#pageH");
+    const pageSub = $("#pageSub");
+    const pageBody = $("#pageBody");
+    let currentId = "start";
 
-      $$("[data-status]").forEach(el=>{
-        const id=el.dataset.status;
-        const ok=!!p[id];
-        el.textContent = ok ? "تیک" : "درحال";
-        el.classList.toggle("ok", ok);
-        el.classList.toggle("todo", !ok);
-      });
-      updateMarkButton();
+    function openPage(id){
+      const pg = byId[id] || byId["start"];
+      currentId = pg.id;
+
+      pageH.textContent = `${pg.icon}  ${pg.title}`;
+      pageSub.textContent = pg.sub || "";
+      pageBody.innerHTML = pg.body || "<p>در حال تکمیل…</p>";
+
+      // Search highlight inside page
+      applySearch();
+
+      // show overlay
+      pageEl.classList.add("show");
+
+      // ALWAYS start from top (حل مشکل تو)
+      pageEl.scrollTo({ top: 0, behavior: "instant" });
+
+      // update hash like real website
+      if(location.hash !== "#"+pg.id) history.pushState({id:pg.id}, "", "#"+pg.id);
+
+      // update mark buttons
+      updateMarkButtons();
+
+      toast("صفحه باز شد ✅");
     }
 
-    function updateMarkButton(){
-      const btn=$("#markBtn");
-      if(!btn) return;
-      btn.textContent = isDone(current) ? "✅ این بخش تیک شده" : "✅ این بخش رو یاد گرفتم";
-      btn.disabled = isDone(current);
-      btn.style.opacity = isDone(current) ? .6 : 1;
+    function closePage(){
+      pageEl.classList.remove("show");
+      toast("برگشتی ✅");
+      // keep hash clean
+      history.pushState({}, "", location.pathname + location.search);
     }
 
-    /********************
-     * Search highlight (in detail only)
-     ********************/
+    function updateMarkButtons(){
+      const done = isDone(currentId);
+      $("#markInsideBtn").textContent = done ? "✅ تیک شده" : "✅ این صفحه رو یاد گرفتم";
+      $("#markInsideBtn").disabled = done;
+      $("#markInsideBtn").style.opacity = done ? .6 : 1;
+
+      $("#markBtn").textContent = done ? "✅ تیک شده" : "✅ این صفحه رو یاد گرفتم";
+      $("#markBtn").disabled = done;
+      $("#markBtn").style.opacity = done ? .6 : 1;
+    }
+
+    function nextPrev(delta){
+      const idx = order.indexOf(currentId);
+      const n = Math.max(0, Math.min(order.length-1, idx + delta));
+      openPage(order[n]);
+    }
+
+    // Search highlight in overlay content
     function stripMarks(el){
       if(!el) return;
       $$("mark", el).forEach(m=>m.replaceWith(document.createTextNode(m.textContent)));
     }
+
     function highlight(el, q){
       if(!q.trim()) return 0;
       const query=q.trim().toLowerCase();
@@ -1200,7 +869,7 @@ ${arr.map(x=>`${Math.round(x*100)}% ≈ ${fmt(pot*x)}`).join("\n")}
         acceptNode(node){
           if(!node.nodeValue) return NodeFilter.FILTER_REJECT;
           const p=node.parentElement?.tagName;
-          if(["SCRIPT","STYLE","MARK","INPUT","TEXTAREA"].includes(p)) return NodeFilter.FILTER_REJECT;
+          if(["SCRIPT","STYLE","MARK","INPUT","TEXTAREA","BUTTON"].includes(p)) return NodeFilter.FILTER_REJECT;
           return node.nodeValue.toLowerCase().includes(query) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
         }
       });
@@ -1228,202 +897,83 @@ ${arr.map(x=>`${Math.round(x*100)}% ≈ ${fmt(pot*x)}`).join("\n")}
       });
       return count;
     }
-    function runSearch(){
-      const q=$("#q")?.value || "";
-      stripMarks(detailBody);
+
+    function applySearch(){
+      const q = $("#q").value || "";
+      stripMarks(pageBody);
       if(!q.trim()) return;
-      const hits=highlight(detailBody, q);
-      if(hits) toast(`پیدا شد: ${hits} مورد`);
+      const hits = highlight(pageBody, q);
+      if(hits) toast(`پیدا شد: ${hits}`);
     }
 
-    /********************
-     * Quiz
-     ********************/
-    const quizState = ()=>load(LS.quiz, {});
-    const setQuizState = (s)=>save(LS.quiz, s);
-
-    function mkChoice(containerId, options, correctIndex, resultId, key){
-      const box = $("#"+containerId);
-      const res = $("#"+resultId);
-      const st = quizState();
-
-      box.innerHTML = "";
-      options.forEach((t, i)=>{
-        const b = document.createElement("button");
-        b.type="button";
-        b.className = "btn " + (i===correctIndex ? "good" : "");
-        b.textContent = t;
-        b.onclick = ()=>{
-          st[key]=i;
-          setQuizState(st);
-          if(i===correctIndex){
-            res.textContent = "✅ درست! عالی.";
-            toast("جواب درست ✅");
-          }else{
-            res.textContent = "❌ اشتباه. دوباره فکر کن: چرا حرفه‌ای‌ها عاشق BTN هستن؟";
-            toast("اشتباه ❌");
-          }
-        };
-        box.appendChild(b);
-      });
-
-      if(st[key] !== undefined){
-        const i = st[key];
-        res.textContent = (i===correctIndex) ? "✅ دفعه قبل درست زدی." : "❌ دفعه قبل اشتباه زدی.";
-      }else{
-        res.textContent = "—";
-      }
-    }
-
-    function setupQuiz(){
-      mkChoice(
-        "q1",
-        [
-          "چون همیشه کارت‌های بهتر می‌گیری",
-          "چون آخر تصمیم می‌گیری و اطلاعات بیشتری داری",
-          "چون بلایند نمی‌دی"
-        ],
-        1,
-        "q1r",
-        "q1"
-      );
-
-      mkChoice(
-        "q2",
-        [
-          "شرط برای اینکه دست‌های بدتر پول بدن",
-          "شرط برای اینکه دست‌های بهتر فولد کنن",
-          "شرط شانسی بدون دلیل"
-        ],
-        0,
-        "q2r",
-        "q2"
-      );
-
-      mkChoice(
-        "q3",
-        [
-          "حدود ۱۰٪",
-          "حدود ۱۸٪",
-          "حدود ۳۶٪"
-        ],
-        2,
-        "q3r",
-        "q3"
-      );
-    }
-
-    /********************
-     * Trainer
-     ********************/
-    const scenarios = [
-      {
-        text:`📌 BTN vs CO (100bb)
-CO ریز 2.5bb
-دست تو: A♠J♠
-❓ بهترین تصمیم؟`,
-        choices:[
-          {t:"Fold", good:false, why:"AJs دست قابل بازیه مخصوصاً در پوزیشن."},
-          {t:"Call", good:true, why:"کال استاندارد، playability خوب، کنترل پات."},
-          {t:"3Bet", good:true, why:"اگر CO زیاد فولد بده یا رنجش باز باشه 3bet عالیه."}
-        ],
-        ans:`✅ تحلیل:
-AJs روی BTN اغلب Call یا 3Bet است.
-- ضد تایت: بیشتر Call
-- ضد شل/فولد زیاد: 3Bet
-پلن ترن/ریور داشته باش.`
-      },
-      {
-        text:`📌 UTG (100bb)
-دست: K♦J♣
-❓ تصمیم؟`,
-        choices:[
-          {t:"Open", good:false, why:"KJo از UTG زیاد dominate میشه و دردسر می‌سازه."},
-          {t:"Fold", good:true, why:"فولد تمیز و حرفه‌ایه."},
-          {t:"Limp", good:false, why:"لیمپ استاندارد نیست و پات بد می‌سازه."}
-        ],
-        ans:`✅ تحلیل:
-UTG رنج تنگ. KJo اغلب فولد.
-حرفه‌ای‌ها فولدهای خوب دارن 😎`
-      },
-      {
-        text:`📌 Flop Value
-تو Preflop ریز کردی، BB کال
-Flop: Q♣ 7♦ 2♠ (خشک)
-دست: A♣Q♦
-BB چک
-❓ حرکت؟`,
-        choices:[
-          {t:"Check back", good:false, why:"روی برد خشک Value داری؛ پول بگیر."},
-          {t:"Bet کوچک ~۳۰٪", good:true, why:"Value می‌گیری و ریسک کمتره."},
-          {t:"Bet بزرگ ~۹۰٪", good:false, why:"دست‌های بدتر فولد میدن؛ Value کم میشه."}
-        ],
-        ans:`✅ تحلیل:
-برد خشک = bet کوچک عالیه.
-هدف: پول گرفتن از Q ضعیف‌تر / 7x / پکت‌ها.`
-      }
-    ];
-
-    let sc=null;
-    function newScenario(){
-      sc=scenarios[Math.floor(Math.random()*scenarios.length)];
-      $("#scText").textContent=sc.text;
-      $("#scExplain").textContent="—";
-      const box=$("#scChoices");
-      box.innerHTML="";
-      sc.choices.forEach(c=>{
-        const b=document.createElement("button");
-        b.type="button";
-        b.className="btn " + (c.good ? "good" : "");
-        b.textContent=c.t;
-        b.onclick=()=>{
-          toast(c.good ? "✅ انتخاب خوب" : "❌ انتخاب ضعیف");
-          $("#scExplain").textContent = `توضیح: ${c.why}`;
-        };
-        box.appendChild(b);
-      });
-    }
-    function revealScenario(){
-      if(!sc){ toast("اول سناریو جدید بزن 😅"); return; }
-      $("#scExplain").textContent=sc.ans;
-    }
-
-    /********************
-     * Tabs
-     ********************/
-    function setTab(name){
-      $$(".tab").forEach(t=>t.classList.toggle("on", t.dataset.tab===name));
-      if(name==="learn") openSection(current || "start");
-      if(name==="math") openSection("math");
-      if(name==="quiz") openSection("quiz");
-    }
-
-    /********************
-     * Wiring
-     ********************/
-    $$("[data-open]").forEach(btn=>{
-      btn.addEventListener("click", ()=>openSection(btn.dataset.open));
+    // Events
+    $$("[data-page]").forEach(btn=>{
+      btn.addEventListener("click", ()=>openPage(btn.dataset.page));
     });
 
+    $("#backBtn").addEventListener("click", closePage);
+    $("#resetBtn").addEventListener("click", resetAll);
+    $("#resetAllBtn").addEventListener("click", resetAll);
+
+    $("#markInsideBtn").addEventListener("click", ()=>{
+      markDone(currentId);
+      updateMarkButtons();
+    });
+    $("#markBtn").addEventListener("click", ()=>{
+      markDone(currentId);
+      updateMarkButtons();
+    });
+
+    $("#nextBtn").addEventListener("click", ()=>nextPrev(+1));
+    $("#prevBtn").addEventListener("click", ()=>nextPrev(-1));
+
+    $("#q").addEventListener("input", ()=>{
+      if(pageEl.classList.contains("show")) applySearch();
+    });
+
+    $("#copyLinkBtn").addEventListener("click", async ()=>{
+      const url = location.href;
+      try{
+        await navigator.clipboard.writeText(url);
+        toast("لینک کپی شد ✅");
+      }catch(e){
+        toast("کپی نشد (محدودیت مرورگر) ❌");
+      }
+    });
+
+    $("#planBtn").addEventListener("click", ()=>{
+      toast("پلن ۷ روزه: روزی ۲ صفحه + تمرین ✅");
+      openPage("start");
+    });
+
+    // Tabs
     $$(".tab").forEach(t=>{
-      t.addEventListener("click", ()=>setTab(t.dataset.tab));
+      t.addEventListener("click", ()=>{
+        $$(".tab").forEach(x=>x.classList.remove("on"));
+        t.classList.add("on");
+        const mode = t.dataset.tab;
+        if(mode==="home"){ toast("خانه 🏠"); closePage(); window.scrollTo({top:0, behavior:"smooth"}); }
+        if(mode==="learn"){ openPage("rules"); }
+        if(mode==="pro"){ openPage("bankroll"); }
+      });
     });
 
-    $("#markBtn").addEventListener("click", ()=>markDone(current));
-    $("#resetAllBtn").addEventListener("click", resetProg);
-    $("#resetBtn").addEventListener("click", resetProg);
-
-    $("#helpBtn").addEventListener("click", ()=>{
-      toast("راهنما: توی سرچ تایپ کن تا داخل بخش باز هایلایت بشه ✅");
+    // Handle back button / hash navigation
+    window.addEventListener("popstate", ()=>{
+      const id = (location.hash||"").replace("#","");
+      if(id && byId[id]) openPage(id);
+      else pageEl.classList.remove("show");
     });
-
-    $("#q").addEventListener("input", runSearch);
 
     // Init
-    $("#totalCount").textContent = sections.length;
     updateProgressUI();
-    openSection("start");
-    document.addEventListener("touchstart", ()=>{}, {passive:true});
+    $("#totalCount").textContent = order.length;
+
+    // If opened with a hash, open it
+    const initId = (location.hash||"").replace("#","");
+    if(initId && byId[initId]) openPage(initId);
   </script>
+
+  <div class="toast" id="toast"></div>
 </body>
 </html>
