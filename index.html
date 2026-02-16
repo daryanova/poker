@@ -663,6 +663,72 @@
       line-height:1.7;
       max-width: min(520px, 92vw);
     }
+    /* MOBILE FIX */
+@media (max-width: 768px){
+
+.app{
+grid-template-columns: 1fr !important;
+}
+
+.sidebar{
+position: relative !important;
+width: 100% !important;
+border-left: none !important;
+}
+
+.navItem{
+padding: 14px !important;
+font-size: 15px !important;
+}
+
+.cell{
+width: 30px !important;
+height: 30px !important;
+font-size: 9px !important;
+}
+
+.rangeGrid{
+grid-template-columns: repeat(13, 30px) !important;
+}
+
+button, .btn, .choice{
+min-height: 44px;
+font-size: 15px !important;
+}
+
+input, select, textarea{
+font-size: 16px !important;
+}
+
+.topHeader{
+border-radius: 16px !important;
+}
+
+.title{
+font-size: 22px !important;
+}
+}
+}
+
+/* MOBILE CLICK FIX */
+@media (max-width:768px){
+
+.sidebar{
+  z-index: 9999 !important;
+}
+
+.app{
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.modal,
+.popup,
+.overlay{
+  z-index: 10000 !important;
+}
+
+}    
     .toast.show{opacity:1; transform: translateY(0)}
   </style>
 </head>
