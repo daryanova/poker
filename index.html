@@ -1,0 +1,2249 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>آکادمی هولدم | آموزش پوکر تگزاس هولدم از مبتدی تا حرفه‌ای</title>
+  <meta name="description" content="سایت آموزشی پوکر تگزاس هولدم (فارسی) از مبتدی تا حرفه‌ای: نکات ریز و درشت، تمرین تعاملی، ماشین حساب Pot Odds/Outs/Equity/Bankroll/Bet Sizing و بیشتر."/>
+
+  <style>
+    :root{
+      --bg0:#050611;
+      --bg1:#070812;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.04);
+      --line: rgba(255,255,255,.11);
+      --line2: rgba(255,255,255,.08);
+      --text:#eaf0ff;
+      --muted:#b7bfdc;
+      --muted2: rgba(234,240,255,.72);
+
+      --felt1:#0b2a1f;
+      --felt2:#0f3a2b;
+
+      --neon:#6dfcff;
+      --gold:#ffd76a;
+      --ok:#4dffb3;
+      --danger:#ff4f7a;
+      --purple:#b07bff;
+
+      --shadow: 0 28px 100px rgba(0,0,0,.60);
+      --r14: 14px;
+      --r18: 18px;
+      --r22: 22px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial;
+      background:
+        radial-gradient(900px 600px at 15% 10%, rgba(109,252,255,.12), transparent 60%),
+        radial-gradient(900px 600px at 85% 90%, rgba(255,215,106,.10), transparent 60%),
+        radial-gradient(900px 600px at 70% 10%, rgba(176,123,255,.08), transparent 65%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 55%, var(--bg0));
+    }
+
+    /* layout */
+    .app{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns: 330px 1fr;
+      gap:0;
+    }
+    @media (max-width: 980px){
+      .app{grid-template-columns: 1fr}
+      .sidebar{position:sticky; top:0; z-index:50}
+    }
+
+    /* sidebar */
+    .sidebar{
+      border-left:1px solid var(--line);
+      background: rgba(0,0,0,.28);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 40px rgba(0,0,0,.35);
+    }
+    .sbTop{
+      padding:14px 14px 10px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .logo{
+      width:48px; height:48px;
+      border-radius:16px;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(120% 120% at 30% 30%, rgba(109,252,255,.22), rgba(255,215,106,.14)),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      box-shadow: 0 0 0 1px rgba(0,0,0,.30) inset;
+      font-size:20px;
+    }
+    .brand h1{
+      margin:0;
+      font-size:14px;
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+    .brand p{
+      margin:4px 0 0;
+      font-size:12px;
+      color:var(--muted2);
+      line-height:1.6;
+    }
+
+    .sbTools{
+      padding:10px 14px 14px;
+      border-bottom:1px solid var(--line2);
+    }
+
+    .searchRow{
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    .searchRow input{
+      width:100%;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color:var(--text);
+      outline:none;
+      font-size:13px;
+    }
+    .searchRow input:focus{
+      border-color: rgba(109,252,255,.45);
+      box-shadow: 0 0 0 4px rgba(109,252,255,.10);
+    }
+    .tinyBtn{
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      cursor:pointer;
+      font-weight:900;
+      font-size:12px;
+      user-select:none;
+      transition:.15s ease;
+      white-space:nowrap;
+    }
+    .tinyBtn:hover{transform:translateY(-1px); border-color:rgba(109,252,255,.35)}
+    .tinyBtn.danger{border-color: rgba(255,79,122,.35)}
+    .tinyBtn.neon{border-color: rgba(109,252,255,.45)}
+
+    .progressBox{
+      margin-top:10px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      border-radius:16px;
+      padding:10px 12px;
+    }
+    .pTop{
+      display:flex; justify-content:space-between; align-items:center;
+      gap:8px; flex-wrap:wrap;
+    }
+    .pTitle{font-weight:900; font-size:12px}
+    .pPct{color:var(--muted2); font-size:12px}
+    .bar{
+      height:10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      margin-top:8px;
+    }
+    .bar > div{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(109,252,255,.85), rgba(255,215,106,.75));
+      box-shadow: 0 0 18px rgba(109,252,255,.18);
+      transition: width .35s ease;
+    }
+    .sbNav{
+      padding:12px 10px 16px;
+    }
+
+    .navGroupTitle{
+      margin:10px 8px 8px;
+      font-size:11px;
+      color:rgba(234,240,255,.62);
+      letter-spacing:.2px;
+      text-transform: none;
+    }
+
+    .navItem{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 10px;
+      margin:6px 4px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      cursor:pointer;
+      user-select:none;
+      transition:.15s ease;
+    }
+    .navItem:hover{
+      transform: translateY(-1px);
+      border-color: rgba(109,252,255,.28);
+    }
+    .navItem.active{
+      border-color: rgba(109,252,255,.55);
+      background: linear-gradient(180deg, rgba(109,252,255,.12), rgba(255,255,255,.03));
+      box-shadow: 0 0 24px rgba(109,252,255,.12);
+    }
+    .navL{
+      display:flex; gap:10px; align-items:center;
+    }
+    .ico{
+      width:34px; height:34px;
+      border-radius:12px;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      font-size:14px;
+    }
+    .navText b{display:block; font-size:13px}
+    .navText span{display:block; font-size:11px; color:rgba(234,240,255,.66); margin-top:2px}
+
+    .checkMark{
+      width:18px; height:18px;
+      border-radius:7px;
+      border:1px solid rgba(255,255,255,.14);
+      display:grid; place-items:center;
+      color:rgba(234,240,255,.55);
+      background: rgba(0,0,0,.18);
+      font-size:12px;
+    }
+    .checkMark.done{
+      border-color: rgba(77,255,179,.35);
+      color: var(--ok);
+      background: rgba(77,255,179,.08);
+    }
+
+    /* main */
+    .main{
+      padding:16px;
+    }
+    .shell{
+      width:min(1200px, 100%);
+      margin:0 auto;
+    }
+    .topHeader{
+      border:1px solid var(--line);
+      border-radius: var(--r22);
+      overflow:hidden;
+      background:
+        radial-gradient(1200px 500px at 15% 0%, rgba(109,252,255,.10), transparent 55%),
+        radial-gradient(900px 400px at 85% 40%, rgba(255,215,106,.10), transparent 55%),
+        linear-gradient(135deg, rgba(11,42,31,.85), rgba(15,58,43,.72));
+      position:relative;
+      box-shadow: var(--shadow);
+    }
+    .scan{
+      position:absolute; inset:-2px;
+      pointer-events:none;
+      opacity:.18;
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0px, rgba(255,255,255,.03) 1px, transparent 2px, transparent 7px);
+      mix-blend-mode: overlay;
+      animation: drift 6s linear infinite;
+    }
+    @keyframes drift{0%{transform:translateY(0)}100%{transform:translateY(14px)}}
+    .thIn{
+      position:relative;
+      padding:18px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:12px;
+    }
+    @media (max-width: 980px){.thIn{grid-template-columns:1fr}}
+    .title{
+      margin:0 0 8px;
+      font-size:28px;
+      font-weight:900;
+      line-height:1.2;
+    }
+    .subtitle{
+      margin:0;
+      color:rgba(234,240,255,.78);
+      line-height:1.8;
+      font-size:14px;
+    }
+    .ctaRow{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:12px;
+    }
+    .btn{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:900;
+      font-size:13px;
+      transition:.15s ease;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:rgba(109,252,255,.45)}
+    .btn.primary{
+      border-color: rgba(109,252,255,.55);
+      background: linear-gradient(180deg, rgba(109,252,255,.16), rgba(0,0,0,.18));
+      box-shadow: 0 0 24px rgba(109,252,255,.12);
+    }
+    .btn.ok{
+      border-color: rgba(77,255,179,.35);
+      background: linear-gradient(180deg, rgba(77,255,179,.12), rgba(0,0,0,.18));
+    }
+    .statBox{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding:14px;
+    }
+    .statGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    .stat{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      border-radius: 16px;
+      padding:10px;
+    }
+    .stat .k{font-size:12px; color:rgba(234,240,255,.72)}
+    .stat .v{font-size:14px; font-weight:900; margin-top:6px}
+    .badgeRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .badge{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      font-size:12px;
+      color:rgba(234,240,255,.86);
+      user-select:none;
+    }
+    .badge.neon{border-color:rgba(109,252,255,.35); color:var(--neon)}
+    .badge.gold{border-color:rgba(255,215,106,.35); color:var(--gold)}
+    .badge.ok{border-color:rgba(77,255,179,.35); color:var(--ok)}
+    .badge.danger{border-color:rgba(255,79,122,.35); color:var(--danger)}
+    .badge.purple{border-color:rgba(176,123,255,.35); color:var(--purple)}
+
+    /* content cards */
+    .grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 980px){.grid{grid-template-columns:1fr}}
+    .card{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      border-radius: var(--r22);
+      padding:14px;
+      box-shadow: 0 10px 45px rgba(0,0,0,.25);
+    }
+    .card h2, .card h3{
+      margin:0 0 8px;
+      font-size:16px;
+      font-weight:900;
+    }
+    .card p{
+      margin:0;
+      color:rgba(234,240,255,.78);
+      line-height:1.85;
+      font-size:13px;
+    }
+
+    .section{
+      margin-top:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      border-radius: var(--r22);
+      padding:14px;
+      box-shadow: 0 10px 45px rgba(0,0,0,.25);
+    }
+    .sectionHeader{
+      display:flex; justify-content:space-between; align-items:flex-start;
+      gap:10px; flex-wrap:wrap;
+      margin-bottom:8px;
+    }
+    .sectionHeader h2{
+      margin:0;
+      font-size:18px;
+      font-weight:900;
+    }
+    .mini{
+      font-size:12px;
+      color:rgba(234,240,255,.66);
+      line-height:1.6;
+      max-width: 520px;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (max-width:980px){.split{grid-template-columns:1fr}}
+    ul{
+      margin:8px 0 0;
+      padding:0 18px 0 0;
+      color:rgba(234,240,255,.82);
+      font-size:13px;
+      line-height:1.95;
+    }
+    ol{
+      margin:8px 0 0;
+      padding:0 18px 0 0;
+      color:rgba(234,240,255,.82);
+      font-size:13px;
+      line-height:1.95;
+    }
+    .note{
+      margin-top:12px;
+      padding:12px;
+      border-radius: 16px;
+      border:1px dashed rgba(109,252,255,.35);
+      background: rgba(109,252,255,.06);
+      color:rgba(234,240,255,.86);
+      line-height:1.85;
+      font-size:13px;
+    }
+    .warn{
+      border:1px dashed rgba(255,79,122,.38);
+      background: rgba(255,79,122,.07);
+    }
+    .okBox{
+      border:1px dashed rgba(77,255,179,.32);
+      background: rgba(77,255,179,.06);
+    }
+
+    /* table */
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+      border-radius: 16px;
+      overflow:hidden;
+      margin-top:10px;
+      font-size:13px;
+    }
+    th, td{
+      padding:10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      text-align:right;
+      vertical-align:top;
+      color:rgba(234,240,255,.86);
+    }
+    th{
+      background: rgba(255,255,255,.05);
+      font-weight:900;
+      color:rgba(234,240,255,.95);
+    }
+    tr:last-child td{border-bottom:none}
+
+    /* calculator */
+    .calcGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (max-width:980px){.calcGrid{grid-template-columns:1fr}}
+    .calc{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      border-radius: 18px;
+      padding:14px;
+    }
+    .calc h3{
+      margin:0 0 8px;
+      font-size:15px;
+      font-weight:900;
+    }
+    .formRow{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width:520px){.formRow{grid-template-columns:1fr}}
+    label{
+      display:block;
+      font-size:12px;
+      color:rgba(234,240,255,.72);
+      margin-bottom:6px;
+    }
+    input, select, textarea{
+      width:100%;
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color:var(--text);
+      outline:none;
+      font-size:13px;
+    }
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(109,252,255,.45);
+      box-shadow: 0 0 0 4px rgba(109,252,255,.10);
+    }
+    textarea{min-height:110px; resize:vertical}
+    .calcBtnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .result{
+      margin-top:10px;
+      padding:12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      line-height:1.9;
+      color:rgba(234,240,255,.86);
+      font-size:13px;
+      white-space: pre-wrap;
+    }
+    .kpiRow{
+      display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;
+    }
+    .kpi{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+      font-size:12px;
+      color:rgba(234,240,255,.86);
+    }
+    .kpi b{color:rgba(234,240,255,.95)}
+    .kpi.neon{border-color:rgba(109,252,255,.35); color:var(--neon)}
+    .kpi.ok{border-color:rgba(77,255,179,.35); color:var(--ok)}
+    .kpi.gold{border-color:rgba(255,215,106,.35); color:var(--gold)}
+    .kpi.danger{border-color:rgba(255,79,122,.35); color:var(--danger)}
+
+    /* trainer */
+    .trainerGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (max-width:980px){.trainerGrid{grid-template-columns:1fr}}
+    .screen{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      border-radius: 18px;
+      padding:14px;
+    }
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:12px;
+      line-height:1.75;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      padding:12px;
+      min-height:130px;
+      white-space: pre-wrap;
+      color:rgba(234,240,255,.86);
+    }
+    .choices{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .choice{
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      cursor:pointer;
+      font-weight:900;
+      font-size:13px;
+      user-select:none;
+      transition:.15s ease;
+    }
+    .choice:hover{transform:translateY(-1px); border-color:rgba(109,252,255,.45)}
+    .choice.good{border-color: rgba(77,255,179,.35)}
+    .choice.bad{border-color: rgba(255,79,122,.35)}
+    .hint{
+      margin-top:10px;
+      font-size:12px;
+      color:rgba(234,240,255,.72);
+      line-height:1.85;
+    }
+
+    /* range grid (simple) */
+    .rangeWrap{
+      margin-top:10px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+      border-radius: 18px;
+      padding:12px;
+      overflow:auto;
+    }
+    .rangeGrid{
+      display:grid;
+      grid-template-columns: repeat(13, 38px);
+      gap:6px;
+      justify-content:start;
+      min-width: 620px;
+    }
+    .cell{
+      width:38px; height:38px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      display:grid; place-items:center;
+      font-size:11px;
+      color:rgba(234,240,255,.82);
+      cursor:pointer;
+      user-select:none;
+      transition:.12s ease;
+    }
+    .cell:hover{transform:translateY(-1px); border-color:rgba(109,252,255,.35)}
+    .cOpen{background: rgba(77,255,179,.12); border-color: rgba(77,255,179,.28)}
+    .c3b{background: rgba(109,252,255,.12); border-color: rgba(109,252,255,.30)}
+    .cMix{background: rgba(255,215,106,.12); border-color: rgba(255,215,106,.30)}
+    .cFold{background: rgba(255,79,122,.10); border-color: rgba(255,79,122,.26)}
+
+    /* footer */
+    .footer{
+      margin-top:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      border-radius: var(--r22);
+      padding:12px 14px;
+      color:rgba(234,240,255,.62);
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    /* search highlighting */
+    mark{
+      background: rgba(255,215,106,.18);
+      color: rgba(234,240,255,.95);
+      border:1px solid rgba(255,215,106,.20);
+      padding:0 4px;
+      border-radius: 8px;
+    }
+
+    /* toast */
+    .toast{
+      position: fixed;
+      left: 16px;
+      bottom: 16px;
+      z-index: 999;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      color: rgba(234,240,255,.86);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      opacity:0;
+      transform: translateY(10px);
+      transition: .25s ease;
+      pointer-events:none;
+      font-size:12px;
+      line-height:1.7;
+      max-width: min(520px, 92vw);
+    }
+    .toast.show{opacity:1; transform: translateY(0)}
+  </style>
+</head>
+
+<body>
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sbTop">
+      <div class="logo">♠️</div>
+      <div class="brand">
+        <h1>آکادمی هولدم — از مبتدی تا حرفه‌ای</h1>
+        <p>نکات ریز و درشت + تمرین + ماشین‌حساب‌ها + رنج‌های ساده + ذخیره پیشرفت ✅</p>
+      </div>
+    </div>
+
+    <div class="sbTools">
+      <div class="searchRow">
+        <input id="searchInput" placeholder="جستجو داخل نکات… مثلا: پات آدز، 3بت، تیلت، C-bet" />
+        <div class="tinyBtn neon" id="searchBtn">🔎</div>
+        <div class="tinyBtn danger" id="clearSearchBtn">✖</div>
+      </div>
+
+      <div class="progressBox">
+        <div class="pTop">
+          <div class="pTitle">پیشرفت یادگیری</div>
+          <div class="pPct" id="progressPct">0%</div>
+        </div>
+        <div class="bar"><div id="progressBar"></div></div>
+        <div class="kpiRow" style="margin-top:10px">
+          <div class="kpi ok"><b id="doneCount">0</b> بخش تیک خورده</div>
+          <div class="kpi neon"><b id="totalCount">0</b> کل بخش‌ها</div>
+        </div>
+        <div class="calcBtnRow">
+          <div class="tinyBtn" id="markCurrentDoneBtn">✅ این بخش رو یاد گرفتم</div>
+          <div class="tinyBtn danger" id="resetProgressBtn">ریست پیشرفت</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sbNav" id="nav">
+      <div class="navGroupTitle">مسیر یادگیری</div>
+
+      <div class="navItem active" data-page="home">
+        <div class="navL">
+          <div class="ico">🏁</div>
+          <div class="navText"><b>شروع و نقشه راه</b><span>چطور درست یاد بگیری</span></div>
+        </div>
+        <div class="checkMark" data-done="home">•</div>
+      </div>
+
+      <div class="navItem" data-page="basics">
+        <div class="navL">
+          <div class="ico">📌</div>
+          <div class="navText"><b>مبانی و قوانین</b><span>دست‌ها، پوزیشن، اصطلاحات</span></div>
+        </div>
+        <div class="checkMark" data-done="basics">•</div>
+      </div>
+
+      <div class="navItem" data-page="preflop">
+        <div class="navL">
+          <div class="ico">🧠</div>
+          <div class="navText"><b>پریفلاپ</b><span>رنج، 3بت، سایزها</span></div>
+        </div>
+        <div class="checkMark" data-done="preflop">•</div>
+      </div>
+
+      <div class="navItem" data-page="postflop">
+        <div class="navL">
+          <div class="ico">🎯</div>
+          <div class="navText"><b>پست‌فلاپ</b><span>Value/Bluff، C-bet</span></div>
+        </div>
+        <div class="checkMark" data-done="postflop">•</div>
+      </div>
+
+      <div class="navItem" data-page="advanced">
+        <div class="navL">
+          <div class="ico">🦾</div>
+          <div class="navText"><b>مفاهیم پیشرفته</b><span>Range، بلوکر، لاین‌ها</span></div>
+        </div>
+        <div class="checkMark" data-done="advanced">•</div>
+      </div>
+
+      <div class="navItem" data-page="calculators">
+        <div class="navL">
+          <div class="ico">🧮</div>
+          <div class="navText"><b>ماشین‌حساب‌ها</b><span>Pot Odds / Outs / Bankroll</span></div>
+        </div>
+        <div class="checkMark" data-done="calculators">•</div>
+      </div>
+
+      <div class="navItem" data-page="trainer">
+        <div class="navL">
+          <div class="ico">🎮</div>
+          <div class="navText"><b>تمرین تعاملی</b><span>سناریو + تحلیل</span></div>
+        </div>
+        <div class="checkMark" data-done="trainer">•</div>
+      </div>
+
+      <div class="navItem" data-page="notes">
+        <div class="navL">
+          <div class="ico">📝</div>
+          <div class="navText"><b>یادداشت حریف‌ها</b><span>Player Notes + تگ</span></div>
+        </div>
+        <div class="checkMark" data-done="notes">•</div>
+      </div>
+
+      <div class="navItem" data-page="mental">
+        <div class="navL">
+          <div class="ico">🧘</div>
+          <div class="navText"><b>ذهن و سرمایه</b><span>Tilt, Stop-loss, Bankroll</span></div>
+        </div>
+        <div class="checkMark" data-done="mental">•</div>
+      </div>
+
+      <div class="navItem" data-page="cheats">
+        <div class="navL">
+          <div class="ico">⚡</div>
+          <div class="navText"><b>برگه تقلب</b><span>اسکرین‌شات و تمام</span></div>
+        </div>
+        <div class="checkMark" data-done="cheats">•</div>
+      </div>
+
+      <div class="navItem" data-page="glossary">
+        <div class="navL">
+          <div class="ico">📚</div>
+          <div class="navText"><b>واژه‌نامه</b><span>اصطلاحات مهم</span></div>
+        </div>
+        <div class="checkMark" data-done="glossary">•</div>
+      </div>
+
+      <div class="navGroupTitle">میانبرها</div>
+      <div class="card" style="margin:10px 4px 0; border-radius:18px">
+        <p style="margin:0;font-size:12px;line-height:1.9;color:rgba(234,240,255,.74)">
+          <b>Alt+1..11</b> جابه‌جایی سریع بین بخش‌ها<br/>
+          <b>N</b> سناریوی بعدی در تمرین<br/>
+          <b>/</b> فوکوس روی سرچ
+        </p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="shell">
+      <div class="topHeader">
+        <div class="scan"></div>
+        <div class="thIn">
+          <div>
+            <h2 class="title">آموزش پوکر هولدم — خفن، کامل، مرحله‌به‌مرحله 😈♠️</h2>
+            <p class="subtitle">
+              اینجا هدف فقط “قوانین” نیست. هدف اینه که <b>تصمیم درست</b> بسازی: رنج، پوزیشن، برنامه شرط‌ها،
+              خواندن حریف، مدیریت تیلت و سرمایه. هر چی لازم داری یک‌جا جمع شده.
+            </p>
+            <div class="ctaRow">
+              <div class="btn primary" onclick="go('basics')">شروع از مبانی</div>
+              <div class="btn" onclick="go('calculators')">رفتن به ماشین‌حساب‌ها 🧮</div>
+              <div class="btn ok" onclick="go('trainer')">تمرین تعاملی 🎮</div>
+              <div class="btn" onclick="toggleZen()">حالت Zen (کم‌حواس‌پرتی)</div>
+            </div>
+          </div>
+          <div class="statBox">
+            <div style="font-weight:900">کیت حرفه‌ای داخل سایت</div>
+            <div class="statGrid">
+              <div class="stat"><div class="k">محاسبه</div><div class="v">Pot Odds / Equity</div></div>
+              <div class="stat"><div class="k">تمرین</div><div class="v">سناریو + تحلیل</div></div>
+              <div class="stat"><div class="k">مدیریت</div><div class="v">Bankroll / Stop-loss</div></div>
+              <div class="stat"><div class="k">تکنیک</div><div class="v">C-bet / 3Bet / Lines</div></div>
+            </div>
+            <div class="badgeRow">
+              <span class="badge neon">Range Thinking</span>
+              <span class="badge gold">Math Edge</span>
+              <span class="badge ok">Discipline</span>
+              <span class="badge danger">Anti Tilt</span>
+              <span class="badge purple">Gameplan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGES -->
+      <!-- HOME -->
+      <section class="section page" id="home">
+        <div class="sectionHeader">
+          <h2>نقشه راه: چطوری در ۳۰ روز پیشرفت واقعی بسازی 🏁</h2>
+          <div class="mini">
+            یه برنامه ساده: روزی ۲۰ دقیقه مطالعه + ۱۰ دقیقه تمرین. نکته: هر جلسه یک “هدف” داشته باش.
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="card">
+            <h3>قانون طلایی: “پوزیشن + رنج = درآمد”</h3>
+            <p>
+              هولدم بیشتر از اینکه “کارت خوب” باشه، “تصمیم درست”ه. تو باید مثل مهندس فکر کنی:
+              حریف چه رنجی داره؟ تو در چه پوزیشنی هستی؟ برنامه‌ات برای Turn/River چیه؟
+            </p>
+            <div class="note okBox">
+              ✅ اگر فقط ۲ چیز یاد بگیری: <b>پوزیشن</b> و <b>رنج</b>… نصف راه حرفه‌ای شدنه.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>چک‌لیست تصمیم‌گیری (قبل هر حرکت)</h3>
+            <ul>
+              <li>من IP هستم یا OOP؟</li>
+              <li>هدف حرکت من چیه؟ Value یا Bluff؟</li>
+              <li>کدام دست‌های حریف کال/فولد می‌کنن؟</li>
+              <li>اگر کال شدم، پلن من برای کارت بعدی چیه؟</li>
+              <li>این تصمیم با Bankroll و حالت ذهنی من سازگاره؟</li>
+            </ul>
+            <div class="note warn">
+              🚫 اشتباه مرگبار: “همین الان حس می‌کنم برنده‌م” — پوکر با حس جلو نمی‌ره.
+            </div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>۳۰ روزه (فشرده) — راهنمای واقعی</h3>
+            <ul>
+              <li><b>هفته ۱:</b> قوانین + رتبه دست‌ها + پوزیشن + مفاهیم پایه (Pot, Odds)</li>
+              <li><b>هفته ۲:</b> پریفلاپ: Open/Call/3Bet + بازی تنگ/شل</li>
+              <li><b>هفته ۳:</b> پست‌فلاپ: C-bet، Value، Drawها، کنترل پات</li>
+              <li><b>هفته ۴:</b> ذهن و سرمایه + Review دست‌ها + تمرین سناریویی</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>قانون “کم ولی درست” برای مبتدی‌ها</h3>
+            <p>
+              تو شروع کار لازم نیست “خیلی دست بازی کنی”. لازم داری <b>کمتر دست</b> بازی کنی ولی
+              <b>بهتر</b>. این باعث میشه اشتباهات گرون کمتر بشه، اعتمادبه‌نفست بالا بره، و بازی‌ات تمیزتر بشه.
+            </p>
+            <div class="note">
+              🧠 پرو-تیپ: بعد هر جلسه ۳ دست “بد” رو یادداشت کن، نه دست‌های “خوب” رو. رشد از اشتباه میاد.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BASICS -->
+      <section class="section page hidden" id="basics">
+        <div class="sectionHeader">
+          <h2>مبانی و قوانین 📌</h2>
+          <div class="mini">
+            این بخش رو محکم بگیر. اگر پایه درست نباشه، بقیه چیزها قاطی میشه.
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="card">
+            <h3>ساختار بازی در یک نگاه</h3>
+            <ul>
+              <li>هر نفر <b>۲ کارت مخفی</b> (Hole Cards) می‌گیرد.</li>
+              <li>روی میز <b>۵ کارت مشترک</b> (Community Cards) می‌آید.</li>
+              <li>مراحل: <b>Preflop</b> → <b>Flop</b> (۳ کارت) → <b>Turn</b> (۱) → <b>River</b> (۱)</li>
+              <li>هدف: بهترین <b>دست ۵ کارتی</b> از ۷ کارت.</li>
+              <li>حرکت‌ها: Check / Bet / Call / Raise / Fold</li>
+            </ul>
+            <div class="note okBox">
+              ✅ اصل: “هر شرط باید هدف داشته باشد” (Value یا Bluff یا Protection).
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>رتبه دست‌ها (قوی → ضعیف)</h3>
+            <ol>
+              <li>Royal Flush</li>
+              <li>Straight Flush</li>
+              <li>Four of a Kind</li>
+              <li>Full House</li>
+              <li>Flush</li>
+              <li>Straight</li>
+              <li>Three of a Kind</li>
+              <li>Two Pair</li>
+              <li>One Pair</li>
+              <li>High Card</li>
+            </ol>
+            <div class="note">
+              📌 <b>کیکر</b> خیلی مهمه: مثلا A♠Q♣ روی برد A-7-3 از A♠J♣ بهتره.
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>پوزیشن‌ها: چرا Button امپراتوره؟ 👑</h3>
+          <div class="split">
+            <div>
+              <ul>
+                <li><b>UTG / MP</b>: اول صحبت می‌کنی → باید تنگ‌تر بازی کنی</li>
+                <li><b>CO / BTN</b>: آخر صحبت می‌کنی → اطلاعات بیشتر → دست‌های بیشتر قابل بازی</li>
+                <li><b>SB / BB</b>: سخت‌ترین جای میز → بیرون از پوزیشن</li>
+              </ul>
+            </div>
+            <div>
+              <div class="note okBox">
+                ✅ قاعده سریع: هرچی دیرتر حرف بزنی، تصمیم‌های بهتر می‌گیری چون اطلاعات بیشتری داری.
+              </div>
+              <div class="note warn">
+                🚫 دام: “Out of position کال کردن زیاد” = نشت پول (Leak) شماره ۱.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PREFLOP -->
+      <section class="section page hidden" id="preflop">
+        <div class="sectionHeader">
+          <h2>پریفلاپ 🧠</h2>
+          <div class="mini">اینجا پایه پول ساختنه. رنج درست + سایز درست + پلان درست.</div>
+        </div>
+
+        <div class="split">
+          <div class="card">
+            <h3>سه قانون طلایی پریفلاپ</h3>
+            <ul>
+              <li><b>لیمپ نکن</b> مگر شرایط خاص (بازی خیلی خاص/خانگی) — استاندارد: Raise یا Fold.</li>
+              <li>در پوزیشن (CO/BTN) کمی آزادتر؛ در ابتدای میز تنگ‌تر.</li>
+              <li>Call زیاد مخصوصاً OOP = پول‌سوزی. بهتر: Fold یا 3Bet با پلن.</li>
+            </ul>
+            <div class="note">
+              🎯 هدف پریفلاپ: ساختن پات با دست‌های مناسب، نه “امتحان کردن شانس”.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>سایزهای رایج</h3>
+            <ul>
+              <li><b>Open Raise</b>: معمولاً 2x تا 3x (بسته به میز)</li>
+              <li><b>3Bet</b>: حدود 3x ریز حریف (اگر OOP هستی کمی بیشتر)</li>
+              <li><b>4Bet</b>: وقتی Value قوی داری یا بلوف برنامه‌دار</li>
+            </ul>
+            <div class="note warn">
+              🚫 اشتباه: “3Bet چون حال میده” — 3Bet باید رنج و دلیل داشته باشد.
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>رنج ساده‌ی آموزشی (برای شروع) — نمونه BTN vs CO</h3>
+          <p>
+            این رنج “آموزشی” است، نه GTO کامل. هدف: نظم ذهنی و جلوگیری از دست‌های بد.
+          </p>
+
+          <div class="rangeWrap">
+            <div class="rangeGrid" id="rangeGrid"></div>
+            <div class="kpiRow">
+              <div class="kpi ok"><b>Open/Call</b> = سبز</div>
+              <div class="kpi neon"><b>3Bet</b> = آبی</div>
+              <div class="kpi gold"><b>Mix</b> = طلایی</div>
+              <div class="kpi danger"><b>Fold</b> = قرمز</div>
+            </div>
+            <div class="note">
+              نکته: روی هر خانه کلیک کن تا توضیحش رو ببینی. (برای یادگیری ذهنی خیلی خوبه)
+            </div>
+            <div class="result" id="rangeInfo">روی یک دست از جدول کلیک کن…</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>لیست لیک‌های مرگبار پریفلاپ (ریز و درشت)</h3>
+          <ul>
+            <li>Call با K9/Q8/J7 مخصوصاً OOP</li>
+            <li>Overplay کردن Ace ضعیف (A2-A8 offsuit) بیرون از پوزیشن</li>
+            <li>Open زیاد از UTG (مثل KJo/QJo در میزهای سخت)</li>
+            <li>3Bet بدون توجه به حریف (آیا فولد می‌دهد؟ آیا کال می‌کند؟)</li>
+            <li>نداشتن برنامه بعد از 3Bet (بعد فلاپ چه کار می‌کنی؟)</li>
+          </ul>
+          <div class="note okBox">
+            ✅ پرو: به جای اینکه “دست” ببینی، <b>رنج</b> ببین. با رنج تصمیم می‌گیری.
+          </div>
+        </div>
+      </section>
+
+      <!-- POSTFLOP -->
+      <section class="section page hidden" id="postflop">
+        <div class="sectionHeader">
+          <h2>پست‌فلاپ 🎯</h2>
+          <div class="mini">اینجا فرق بازیکن معمولی و خفن مشخص میشه: Value، بلوف، سایز، پلن.</div>
+        </div>
+
+        <div class="split">
+          <div class="card">
+            <h3>سه سوال قبل از هر Bet</h3>
+            <ul>
+              <li>این Bet برای <b>Value</b>ه یا <b>Bluff</b>؟</li>
+              <li>با این سایز چه دست‌هایی <b>کال</b> می‌کنن و چه دست‌هایی <b>فولد</b>؟</li>
+              <li>اگر کال شدم، پلن من برای Turn/River چیه؟</li>
+            </ul>
+            <div class="note">
+              💡 Bet بی‌هدف = دادن اطلاعات و پول به حریف.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>C-bet (Continuation Bet)</h3>
+            <ul>
+              <li>برد خشک (Dry): بلوف‌های کوچک بیشتر جواب میده.</li>
+              <li>برد خیس (Wet): دست‌های درآو زیادن → محتاط‌تر و سایز مناسب.</li>
+              <li>در Multiway (چند نفر): بلوف سخت‌تر میشه.</li>
+            </ul>
+            <div class="note okBox">
+              ✅ بهترین C-bet برای شروع: <b>کوچک</b> روی بردهای خشک، <b>هدفمند</b> روی بردهای خیس.
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Value vs Bluff — قانون‌های ریز</h3>
+          <div class="split">
+            <div>
+              <ul>
+                <li><b>Value Bet</b>: وقتی دست‌های بدتر کال می‌کنن → شرط کن ✅</li>
+                <li><b>Bluff</b>: وقتی دست‌های بهتر فولد می‌کنن و داستانت منطقیه → شرط کن</li>
+                <li><b>Protection</b>: وقتی نمی‌خوای کارت رایگان به درآوها بدی</li>
+                <li><b>Pot Control</b>: وقتی دستت متوسطه و نمی‌خوای پات بزرگ شه</li>
+              </ul>
+            </div>
+            <div>
+              <div class="note warn">
+                🚫 بلوف بدون داستان: اگر خط بازی‌ات نماینده دست قوی نیست، بلوف ریور نزن.
+              </div>
+              <div class="note okBox">
+                ✅ خیلی‌ها کم Value می‌گیرن. تو Value رو جدی بگیر (خصوصاً مقابل کالرها).
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Drawها، Outs، و اشتباهات رایج</h3>
+          <ul>
+            <li>Flush Draw معمولاً 9 Out دارد (تقریباً)</li>
+            <li>Open-ended Straight Draw معمولاً 8 Out</li>
+            <li>Gutshot معمولاً 4 Out</li>
+            <li><b>Rule of 2&4</b>: بعد فلاپ Out×4 ≈ درصد؛ بعد ترن Out×2 ≈ درصد</li>
+            <li>اگر Pot Odds بد است و implied هم نداری → کال نکن</li>
+          </ul>
+          <div class="note">
+            برو بخش ماشین‌حساب‌ها تا دقیق حساب کنی 😈🧮
+          </div>
+        </div>
+      </section>
+
+      <!-- ADVANCED -->
+      <section class="section page hidden" id="advanced">
+        <div class="sectionHeader">
+          <h2>مفاهیم پیشرفته 🦾</h2>
+          <div class="mini">اینجا وارد بازی واقعی میشی: Range vs Range، بلوکر، پولارایز، لاین.</div>
+        </div>
+
+        <div class="split">
+          <div class="card">
+            <h3>Range Thinking (تفکر رنجی)</h3>
+            <ul>
+              <li>به جای “حریف AA داره؟” بپرس: “رنجش شامل چی‌هاست؟”</li>
+              <li>هر حرکت حریف بخشی از رنجش را حذف/کم‌رنگ می‌کند.</li>
+              <li>برد (Board) رنج‌ها را می‌زند: بعضی بردها به رنج تو می‌خورد، بعضی به رنج حریف.</li>
+            </ul>
+            <div class="note okBox">
+              ✅ حرفه‌ای‌ها “با رنج‌ها” بازی می‌کنن، نه با یک دست.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>بلوف درست (نه بلوف الکی)</h3>
+            <ul>
+              <li>بلوف وقتی خوبه که <b>Fold Equity</b> داشته باشی.</li>
+              <li>بلوف وقتی خوبه که <b>داستان منطقی</b> داشته باشی.</li>
+              <li>بلوف وقتی خوبه که <b>بلوکر</b> داشته باشی (مثلاً A♠ جلوی نات‌فلاش).</li>
+            </ul>
+            <div class="note warn">
+              🚫 در برابر “کالرهای دیوانه”، بلوف کمتر، Value بیشتر.
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Bet Sizing پیشرفته (قانون‌های خفن ولی ساده)</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>هدف</th>
+                <th>سایز رایج</th>
+                <th>چه وقتی؟</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>کوچک</b> برای فشار ملایم</td>
+                <td>25%–40% پات</td>
+                <td>برد خشک، رنج‌ادوانتیج، C-bet</td>
+              </tr>
+              <tr>
+                <td><b>متوسط</b> برای Value/Protection</td>
+                <td>50%–70% پات</td>
+                <td>برد نیمه‌خیس، گرفتن Value از درآو/تاپ‌پیر</td>
+              </tr>
+              <tr>
+                <td><b>بزرگ</b> پولارایز</td>
+                <td>75%–150% پات</td>
+                <td>یا خیلی قوی یا بلوف قوی با داستان</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note okBox">
+            ✅ «کوچک شرط کردن» خیلی وقت‌ها بهتر از شرط بزرگه، چون با دست‌های بدتر کال می‌گیری و ریسک کمتره.
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>چک‌لیست ریور (جایی که پول واقعی میاد) 💰</h3>
+          <ul>
+            <li>اگر Value می‌زنی: حریف با چه دست‌های بدتر کال می‌کنه؟</li>
+            <li>اگر بلوف می‌زنی: حریف چه دست‌های بهتر رو فولد می‌کنه؟</li>
+            <li>حریف تیپش چیه؟ کالر؟ نیت؟ تهاجمی؟</li>
+            <li>لاین تو منطقیه؟ (از پریفلاپ تا ریور)</li>
+            <li>سایزت با داستانت می‌خونه؟</li>
+          </ul>
+          <div class="note warn">
+            🚫 بزرگ‌ترین باخت‌ها معمولاً از “Hero Call”‌های بی‌منطق یا “Hero Bluff”های بی‌داستان میاد.
+          </div>
+        </div>
+      </section>
+
+      <!-- CALCULATORS -->
+      <section class="section page hidden" id="calculators">
+        <div class="sectionHeader">
+          <h2>ماشین‌حساب‌ها 🧮</h2>
+          <div class="mini">این بخش، مزیت ریاضی توئه. هرچی بیشتر حساب کنی، کمتر پول مفت می‌دی.</div>
+        </div>
+
+        <div class="calcGrid">
+          <!-- POT ODDS -->
+          <div class="calc">
+            <h3>۱) Pot Odds (پات آدز) + تصمیم Call/Fold</h3>
+            <div class="formRow">
+              <div>
+                <label>پاتِ فعلی (قبل از کال)</label>
+                <input id="potNow" type="number" step="0.01" placeholder="مثلا 10"/>
+              </div>
+              <div>
+                <label>مبلغ کال</label>
+                <input id="callAmt" type="number" step="0.01" placeholder="مثلا 6"/>
+              </div>
+            </div>
+            <div class="formRow">
+              <div>
+                <label>Equity تقریبی شما (%)</label>
+                <input id="equityPct" type="number" step="0.1" placeholder="مثلا 35"/>
+              </div>
+              <div>
+                <label>Implied Odds (اختیاری) - پول احتمالی آینده</label>
+                <input id="implied" type="number" step="0.01" placeholder="مثلا 4"/>
+              </div>
+            </div>
+            <div class="calcBtnRow">
+              <div class="btn primary" onclick="calcPotOdds()">محاسبه</div>
+              <div class="btn" onclick="fillPotOddsExample()">نمونه بزن</div>
+            </div>
+            <div class="result" id="potOddsResult">نتیجه اینجا میاد…</div>
+          </div>
+
+          <!-- OUTS & EQUITY -->
+          <div class="calc">
+            <h3>۲) Outs + Rule of 2&4 (شانس تکمیل دست)</h3>
+            <div class="formRow">
+              <div>
+                <label>تعداد Outs</label>
+                <input id="outs" type="number" step="1" placeholder="مثلا 9"/>
+              </div>
+              <div>
+                <label>مرحله</label>
+                <select id="street">
+                  <option value="flop">بعد از فلاپ (دو کارت مانده)</option>
+                  <option value="turn">بعد از ترن (یک کارت مانده)</option>
+                </select>
+              </div>
+            </div>
+            <div class="calcBtnRow">
+              <div class="btn primary" onclick="calcOuts()">محاسبه</div>
+              <div class="btn" onclick="fillOutsExample()">نمونه بزن</div>
+            </div>
+            <div class="result" id="outsResult">نتیجه اینجا میاد…</div>
+            <div class="note">
+              یادآوری: این قانون تقریبیه ولی برای تصمیم سریع عالیه. برای حالت‌های خاص (کارت‌های مرده، بلوکرها) دقیق‌تر فکر کن.
+            </div>
+          </div>
+
+          <!-- BET SIZING -->
+          <div class="calc">
+            <h3>۳) Bet Sizing (سایز شرط پیشنهادی)</h3>
+            <div class="formRow">
+              <div>
+                <label>اندازه پات</label>
+                <input id="potSize" type="number" step="0.01" placeholder="مثلا 20"/>
+              </div>
+              <div>
+                <label>هدف</label>
+                <select id="betGoal">
+                  <option value="cbet_dry">C-bet روی برد خشک</option>
+                  <option value="value">Value / Protection</option>
+                  <option value="polar">Polar (خیلی قوی یا بلوف قوی)</option>
+                </select>
+              </div>
+            </div>
+            <div class="calcBtnRow">
+              <div class="btn primary" onclick="calcBetSizing()">پیشنهاد بده</div>
+              <div class="btn" onclick="fillBetExample()">نمونه بزن</div>
+            </div>
+            <div class="result" id="betResult">نتیجه اینجا میاد…</div>
+          </div>
+
+          <!-- BANKROLL -->
+          <div class="calc">
+            <h3>۴) Bankroll (مدیریت سرمایه) + Limit پیشنهاد</h3>
+            <div class="formRow">
+              <div>
+                <label>کل سرمایه (Bankroll)</label>
+                <input id="bankroll" type="number" step="0.01" placeholder="مثلا 500"/>
+              </div>
+              <div>
+                <label>نوع بازی</label>
+                <select id="gameType">
+                  <option value="cash">Cash Game</option>
+                  <option value="mtt">Tournament (MTT)</option>
+                  <option value="sng">Sit&Go</option>
+                </select>
+              </div>
+            </div>
+            <div class="formRow">
+              <div>
+                <label>ریسک‌پذیری</label>
+                <select id="risk">
+                  <option value="safe">ایمن</option>
+                  <option value="normal">معمولی</option>
+                  <option value="agg">تهاجمی</option>
+                </select>
+              </div>
+              <div>
+                <label>Buy-in فعلی (اختیاری)</label>
+                <input id="buyin" type="number" step="0.01" placeholder="مثلا 10"/>
+              </div>
+            </div>
+            <div class="calcBtnRow">
+              <div class="btn primary" onclick="calcBankroll()">محاسبه</div>
+              <div class="btn" onclick="fillBankrollExample()">نمونه بزن</div>
+            </div>
+            <div class="result" id="bankrollResult">نتیجه اینجا میاد…</div>
+          </div>
+
+          <!-- EV Quick -->
+          <div class="calc">
+            <h3>۵) EV سریع (ارزش مورد انتظار کال)</h3>
+            <p style="margin:0;color:rgba(234,240,255,.76);font-size:13px;line-height:1.85">
+              اگر Equity تقریبی داری، این ابزار سریع EV کال را می‌دهد:
+              EV = Equity × (Pot + Call) − (1−Equity) × Call
+            </p>
+            <div class="formRow">
+              <div>
+                <label>پات فعلی</label>
+                <input id="evPot" type="number" step="0.01" placeholder="مثلا 12"/>
+              </div>
+              <div>
+                <label>مبلغ کال</label>
+                <input id="evCall" type="number" step="0.01" placeholder="مثلا 8"/>
+              </div>
+            </div>
+            <div class="formRow">
+              <div>
+                <label>Equity (%)</label>
+                <input id="evEq" type="number" step="0.1" placeholder="مثلا 38"/>
+              </div>
+              <div>
+                <label>Rake/هزینه (اختیاری)</label>
+                <input id="evRake" type="number" step="0.01" placeholder="مثلا 0.5"/>
+              </div>
+            </div>
+            <div class="calcBtnRow">
+              <div class="btn primary" onclick="calcEV()">محاسبه EV</div>
+              <div class="btn" onclick="fillEVExample()">نمونه بزن</div>
+            </div>
+            <div class="result" id="evResult">نتیجه اینجا میاد…</div>
+          </div>
+
+          <!-- QUICK OUTS LIST -->
+          <div class="calc">
+            <h3>۶) لیست سریع Outs رایج (حفظی کن)</h3>
+            <table>
+              <thead>
+                <tr><th>نوع</th><th>Outs</th><th>تقریب شانس (بعد فلاپ)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Flush Draw</td><td>9</td><td>~36%</td></tr>
+                <tr><td>OESD (دو سر)</td><td>8</td><td>~32%</td></tr>
+                <tr><td>Gutshot</td><td>4</td><td>~16%</td></tr>
+                <tr><td>Set to Full House/Quads (در ریور/ترن بسته به برد)</td><td>~7–10</td><td>متغیر</td></tr>
+              </tbody>
+            </table>
+            <div class="note">
+              📌 اگر درآو “نات” نیست (مثلاً فلاش پایین)، implied رو کمتر حساب کن چون ممکنه Reverse Implied بخوری.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRAINER -->
+      <section class="section page hidden" id="trainer">
+        <div class="sectionHeader">
+          <h2>تمرین تعاملی 🎮</h2>
+          <div class="mini">سناریو می‌ده، تو انتخاب می‌کنی، بعد تحلیل می‌گیری. با <b>N</b> سناریوی بعدی.</div>
+        </div>
+
+        <div class="trainerGrid">
+          <div class="screen">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+              <div style="font-weight:900">سناریو</div>
+              <div class="mini">میانبرها: N (سناریو جدید) | Alt+7 (بازگشت سریع)</div>
+            </div>
+
+            <div class="mono" id="scenarioBox">روی «سناریوی جدید» بزن 😈</div>
+            <div class="choices" id="choices"></div>
+            <div class="hint" id="trainerHint"></div>
+
+            <div class="ctaRow" style="margin-top:12px">
+              <div class="btn primary" onclick="newScenario()">سناریوی جدید</div>
+              <div class="btn" onclick="revealAnswer()">پاسخ و توضیح</div>
+              <div class="btn ok" onclick="markDone('trainer')">✅ این بخش رو زدم</div>
+            </div>
+          </div>
+
+          <div class="screen">
+            <div style="font-weight:900;margin-bottom:8px">قانون‌های تمرین (پرو)</div>
+            <ul>
+              <li>اول تصمیم: Fold/Call/Raise/3Bet</li>
+              <li>بعد دلیل: پوزیشن؟ رنج؟ تیپ حریف؟ برد چقدر خیسه؟</li>
+              <li>هر تصمیم بدون “پلن” = اشتباه پنهان</li>
+              <li>بعد تمرین برو ماشین‌حساب‌ها و یک نمونه Pot Odds حساب کن</li>
+            </ul>
+
+            <div class="note okBox">
+              ✅ هدف تمرین: عادت ذهنی “منطق تصمیم” نه “امید به کارت بعدی”.
+            </div>
+
+            <div class="note warn">
+              🚫 تیلت‌هشدار: اگر ۲ تصمیم پشت‌سرهم احساسی شد، توقف کن.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTES -->
+      <section class="section page hidden" id="notes">
+        <div class="sectionHeader">
+          <h2>یادداشت حریف‌ها 📝</h2>
+          <div class="mini">این بخش تو بازی‌های دوستانه خیلی می‌ترکونه: سبک حریف‌ها رو ثبت کن.</div>
+        </div>
+
+        <div class="split">
+          <div class="calc">
+            <h3>ثبت یادداشت جدید</h3>
+            <div class="formRow">
+              <div>
+                <label>نام/لقب حریف</label>
+                <input id="noteName" placeholder="مثلا: علی - کالر"/>
+              </div>
+              <div>
+                <label>تیپ</label>
+                <select id="noteTag">
+                  <option value="Calling Station">Calling Station (زیاد کال می‌کنه)</option>
+                  <option value="Nit">Nit (فقط دست خوب)</option>
+                  <option value="Maniac">Maniac (تهاجمی دیوانه)</option>
+                  <option value="TAG">TAG (تایت-تهاجمی)</option>
+                  <option value="LAG">LAG (شل-تهاجمی)</option>
+                  <option value="Tricky">Tricky (تله می‌ذاره)</option>
+                </select>
+              </div>
+            </div>
+            <div class="formRow">
+              <div>
+                <label>نکات رفتاری</label>
+                <input id="noteReads" placeholder="مثلا: وقتی دست قویه ناگهان ساکت میشه"/>
+              </div>
+              <div>
+                <label>لیک‌های واضح</label>
+                <input id="noteLeaks" placeholder="مثلا: با هر درآویی تا ریور کال میکنه"/>
+              </div>
+            </div>
+            <div>
+              <label>یادداشت کامل</label>
+              <textarea id="noteText" placeholder="مثلا: در ریور زیاد بلوف می‌زنه، ولی روی بردهای خیس سریع فولد میده..."></textarea>
+            </div>
+            <div class="ctaRow">
+              <div class="btn primary" onclick="saveNote()">ذخیره</div>
+              <div class="btn" onclick="exportNotes()">خروجی (کپی متنی)</div>
+              <div class="btn danger" onclick="clearNotes()">پاک کردن همه</div>
+            </div>
+            <div class="result" id="noteResult">یادداشت‌ها در مرورگر ذخیره میشن (LocalStorage) ✅</div>
+          </div>
+
+          <div class="calc">
+            <h3>لیست یادداشت‌ها</h3>
+            <div class="searchRow">
+              <input id="noteSearch" placeholder="جستجو بین یادداشت‌ها…"/>
+              <div class="tinyBtn neon" onclick="renderNotes()">🔎</div>
+            </div>
+            <div class="result" id="noteList">هنوز چیزی ثبت نشده…</div>
+            <div class="note okBox">
+              ✅ پرو-تیپ: مقابل <b>Calling Station</b> بلوف کم، Value زیاد. مقابل <b>Nit</b> بلوف حساب‌شده عالی جواب میده.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MENTAL -->
+      <section class="section page hidden" id="mental">
+        <div class="sectionHeader">
+          <h2>ذهن و سرمایه 🧘💰</h2>
+          <div class="mini">اگر این بخش رو جدی نگیری، هرچی تکنیک بلد باشی هم می‌پاشه.</div>
+        </div>
+
+        <div class="split">
+          <div class="card">
+            <h3>Tilt (تیلت) — دشمن شماره ۱</h3>
+            <ul>
+              <li>تیلت یعنی تصمیم احساسی بعد از باخت/بدشانسی.</li>
+              <li>نشانه‌ها: عجله، عصبانیت، “می‌خوام جبران کنم”.</li>
+              <li>راهکار فوری: 5 دقیقه توقف + آب + نفس عمیق + برگشت فقط با پلن.</li>
+            </ul>
+            <div class="note warn">
+              🚫 “Chasing losses” = باخت چند برابر. پوکر جای جبران عصبی نیست.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Stop-loss و نظم</h3>
+            <ul>
+              <li>حد ضرر روزانه: مثلاً ۲ Buy-in باخت → توقف.</li>
+              <li>حد زمان: مثلاً ۹۰ دقیقه بازی → استراحت.</li>
+              <li>بعد بازی: ۳ دست بد رو مرور کن (نه دست‌های خوش‌شانس).</li>
+            </ul>
+            <div class="note okBox">
+              ✅ حرفه‌ای‌ها با “نظم” می‌برن، نه با “هیجان”.
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>کنترل تصویر ذهنی (نکات ریز)</h3>
+          <ul>
+            <li>بدشانسی (Variance) طبیعی است. هدف تو “تصمیم درست” است نه “برد هر دست”.</li>
+            <li>اگر حس کردی داری دیوانه میشی: <b>کمتر دست بازی کن</b>.</li>
+            <li>با پول اجاره/زندگی بازی نکن. ذهن ترسناک = بازی بد.</li>
+            <li>به جای فکر روی نتیجه، روی فرآیند تمرکز کن: Range, Position, Plan.</li>
+          </ul>
+          <div class="note">
+            🧠 جمله‌ی پرو: “من امروز تصمیم درست می‌گیرم، نتیجه خودش میاد.”
+          </div>
+        </div>
+      </section>
+
+      <!-- CHEATS -->
+      <section class="section page hidden" id="cheats">
+        <div class="sectionHeader">
+          <h2>برگه تقلب ⚡</h2>
+          <div class="mini">برای بازی دوستانه عالیه. اسکرین‌شات بگیر و تمام 😎</div>
+        </div>
+
+        <div class="split">
+          <div class="card">
+            <h3>۱۰ قانون پول‌ساز</h3>
+            <ul>
+              <li>پوزیشن = پول</li>
+              <li>لیمپ کمتر، Raise/Fold بیشتر</li>
+              <li>OOP کال کمتر</li>
+              <li>Value Bet جدی‌تر از Bluff</li>
+              <li>Multiway = بلوف کمتر</li>
+              <li>Draw بدون odds = پول‌سوزی</li>
+              <li>Top Pair همیشه نات نیست</li>
+              <li>بلوف فقط با داستان</li>
+              <li>Stop-loss داشته باش</li>
+              <li>وقتی تیلت شدی توقف</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>فرمول‌های سریع</h3>
+            <ul>
+              <li>Rule of 2&4: Out×4 یا Out×2</li>
+              <li>Pot Odds ≈ Call / (Pot + Call)</li>
+              <li>EV کال: Eq×(Pot+Call) − (1−Eq)×Call</li>
+              <li>برد خشک: bet کوچک / برد خیس: bet هدفمند</li>
+            </ul>
+            <div class="note okBox">
+              ✅ “کسی که ریاضی بلد باشه، کمتر پول مفت میده.”
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>از مبتدی تا حرفه‌ای: بزرگ‌ترین دام‌ها</h3>
+          <table>
+            <thead>
+              <tr><th>دام</th><th>چرا خطرناک است؟</th><th>راه درست</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Call زیاد OOP</td>
+                <td>اطلاعات کمتر، تصمیم سخت‌تر، پول بیشتر می‌ریزه</td>
+                <td>Fold/3Bet با پلن</td>
+              </tr>
+              <tr>
+                <td>بلوف بدون داستان</td>
+                <td>حریف کال می‌کند، تو پول می‌سوزانی</td>
+                <td>بلوف با Fold Equity و بلوکر</td>
+              </tr>
+              <tr>
+                <td>Hero Call الکی</td>
+                <td>ریور جای قهرمان‌بازی نیست</td>
+                <td>پروفایل حریف + لاین منطقی</td>
+              </tr>
+              <tr>
+                <td>تیلت</td>
+                <td>تصمیم احساسی → نابودی سرمایه</td>
+                <td>Stop-loss + وقفه</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- GLOSSARY -->
+      <section class="section page hidden" id="glossary">
+        <div class="sectionHeader">
+          <h2>واژه‌نامه 📚</h2>
+          <div class="mini">این‌ها رو مسلط باشی، نصف گفتگوهای پوکر رو می‌فهمی.</div>
+        </div>
+
+        <table>
+          <thead><tr><th>اصطلاح</th><th>معنی ساده</th><th>نکته</th></tr></thead>
+          <tbody>
+            <tr><td><b>Range</b></td><td>مجموعه دست‌های ممکن حریف</td><td>با “رنج” تصمیم بگیر نه تک‌دست</td></tr>
+            <tr><td><b>IP/OOP</b></td><td>داخل/بیرون پوزیشن</td><td>OOP بازی سخت‌تر و پرهزینه‌تره</td></tr>
+            <tr><td><b>C-bet</b></td><td>شرط ادامه بعد از ریز پریفلاپ</td><td>روی برد خشک اغلب کوچک</td></tr>
+            <tr><td><b>Value Bet</b></td><td>شرط برای پول گرفتن از بدترها</td><td>ضد کالرها: Value زیاد</td></tr>
+            <tr><td><b>Bluff</b></td><td>شرط برای فولد گرفتن</td><td>بدون داستان نزن</td></tr>
+            <tr><td><b>Equity</b></td><td>سهم شانس برد</td><td>با Pot Odds مقایسه کن</td></tr>
+            <tr><td><b>Pot Odds</b></td><td>نسبت کال به پات</td><td>اگر Eq > PotOdds → کال منطقی</td></tr>
+            <tr><td><b>Outs</b></td><td>کارت‌های بهبود دهنده</td><td>Rule of 2&4</td></tr>
+            <tr><td><b>3Bet/4Bet</b></td><td>ریز روی ریز / ریز دوباره</td><td>با رنج و پلن</td></tr>
+            <tr><td><b>Polarized</b></td><td>یا خیلی قوی یا بلوف خالص</td><td>سایز بزرگ معمولاً پولار است</td></tr>
+            <tr><td><b>Blocker</b></td><td>کارت بازدارنده</td><td>بلوف با بلوکر بهتره</td></tr>
+            <tr><td><b>Thin Value</b></td><td>Value با دست نه‌چندان قوی</td><td>ضد کالرها می‌ترکونه</td></tr>
+            <tr><td><b>Fold Equity</b></td><td>شانس فولد دادن حریف</td><td>بلوف بدونش بی‌معنیه</td></tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          اگه خواستی، نسخه بعدی رو “دیکشنری سرچ‌دار” هم می‌کنم داخل همین فایل ✅
+        </div>
+      </section>
+
+      <div class="footer">
+        <div>© آکادمی هولدم — نسخه آفلاین تک‌فایل (ذخیره با LocalStorage)</div>
+        <div>پیشنهاد: بعد هر جلسه برو «تمرین» و ۳ سناریو بزن 🎮</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  /* -----------------------------
+     Core: pages + nav + shortcuts
+  ------------------------------*/
+  const pageIds = ["home","basics","preflop","postflop","advanced","calculators","trainer","notes","mental","cheats","glossary"];
+  let currentPage = "home";
+
+  function go(id){
+    currentPage = id;
+    pageIds.forEach(pid=>{
+      document.getElementById(pid).classList.toggle("hidden", pid!==id);
+    });
+    document.querySelectorAll(".navItem").forEach(n=>{
+      n.classList.toggle("active", n.dataset.page===id);
+    });
+    window.scrollTo({top:0, behavior:"smooth"});
+    updateProgressUI();
+  }
+
+  document.getElementById("nav").addEventListener("click",(e)=>{
+    const item = e.target.closest(".navItem");
+    if(!item) return;
+    go(item.dataset.page);
+  });
+
+  document.addEventListener("keydown",(e)=>{
+    // focus search with "/"
+    if(e.key === "/" && document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA"){
+      e.preventDefault();
+      document.getElementById("searchInput").focus();
+      return;
+    }
+    // Alt+1..11 pages
+    if(e.altKey){
+      const n = parseInt(e.key,10);
+      if(n>=1 && n<=pageIds.length){
+        go(pageIds[n-1]);
+      }
+    }
+    // trainer next
+    if(e.key.toLowerCase()==="n"){
+      const trainerVisible = !document.getElementById("trainer").classList.contains("hidden");
+      if(trainerVisible) newScenario();
+    }
+  });
+
+  /* -----------------------------
+     Toast helper
+  ------------------------------*/
+  const toastEl = document.getElementById("toast");
+  let toastTimer = null;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>toastEl.classList.remove("show"), 2200);
+  }
+
+  /* -----------------------------
+     Zen mode
+  ------------------------------*/
+  let zen = false;
+  function toggleZen(){
+    zen = !zen;
+    document.querySelector(".sidebar").style.display = zen ? "none" : "block";
+    document.querySelector(".app").style.gridTemplateColumns = zen ? "1fr" : "330px 1fr";
+    toast(zen ? "حالت Zen فعال شد 🧘" : "حالت Zen خاموش شد ✅");
+  }
+
+  /* -----------------------------
+     Progress tracking (LocalStorage)
+  ------------------------------*/
+  const LS_KEY = "holdem_academy_progress_v1";
+  function loadProgress(){
+    try{
+      const raw = localStorage.getItem(LS_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch{ return {}; }
+  }
+  function saveProgress(obj){
+    localStorage.setItem(LS_KEY, JSON.stringify(obj));
+  }
+  function markDone(pageId){
+    const p = loadProgress();
+    p[pageId] = true;
+    saveProgress(p);
+    updateProgressUI();
+    toast("تیک شد ✅");
+  }
+  function resetProgress(){
+    localStorage.removeItem(LS_KEY);
+    updateProgressUI();
+    toast("پیشرفت ریست شد 🧼");
+  }
+
+  document.getElementById("markCurrentDoneBtn").addEventListener("click", ()=>markDone(currentPage));
+  document.getElementById("resetProgressBtn").addEventListener("click", resetProgress);
+
+  function updateProgressUI(){
+    const p = loadProgress();
+    const total = pageIds.length;
+    const done = pageIds.filter(id=>p[id]).length;
+
+    document.getElementById("totalCount").textContent = total;
+    document.getElementById("doneCount").textContent = done;
+
+    const pct = Math.round((done/total)*100);
+    document.getElementById("progressPct").textContent = pct + "%";
+    document.getElementById("progressBar").style.width = pct + "%";
+
+    // sidebar checkmarks
+    document.querySelectorAll(".checkMark").forEach(ch=>{
+      const id = ch.dataset.done;
+      const isDone = !!p[id];
+      ch.classList.toggle("done", isDone);
+      ch.textContent = isDone ? "✓" : "•";
+    });
+  }
+
+  /* -----------------------------
+     Search (highlighter on current page)
+  ------------------------------*/
+  const searchInput = document.getElementById("searchInput");
+  const searchBtn = document.getElementById("searchBtn");
+  const clearSearchBtn = document.getElementById("clearSearchBtn");
+
+  function stripMarks(el){
+    // remove <mark> by replacing with text nodes
+    const marks = el.querySelectorAll("mark");
+    marks.forEach(m=>{
+      const text = document.createTextNode(m.textContent);
+      m.replaceWith(text);
+    });
+  }
+
+  function highlight(el, query){
+    if(!query.trim()) return 0;
+    const q = query.trim();
+    let count = 0;
+
+    // walk text nodes
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+      acceptNode(node){
+        if(!node.nodeValue) return NodeFilter.FILTER_REJECT;
+        if(node.parentElement && ["SCRIPT","STYLE","MARK","INPUT","TEXTAREA"].includes(node.parentElement.tagName)) return NodeFilter.FILTER_REJECT;
+        if(node.nodeValue.toLowerCase().includes(q.toLowerCase())) return NodeFilter.FILTER_ACCEPT;
+        return NodeFilter.FILTER_SKIP;
+      }
+    });
+
+    const nodes = [];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+
+    nodes.forEach(node=>{
+      const text = node.nodeValue;
+      const lower = text.toLowerCase();
+      const ql = q.toLowerCase();
+      let idx = lower.indexOf(ql);
+      if(idx === -1) return;
+
+      const frag = document.createDocumentFragment();
+      let last = 0;
+      while(idx !== -1){
+        frag.appendChild(document.createTextNode(text.slice(last, idx)));
+        const m = document.createElement("mark");
+        m.textContent = text.slice(idx, idx+q.length);
+        frag.appendChild(m);
+        count++;
+        last = idx+q.length;
+        idx = lower.indexOf(ql, last);
+      }
+      frag.appendChild(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+
+    return count;
+  }
+
+  function runSearch(){
+    const q = searchInput.value;
+    const pageEl = document.getElementById(currentPage);
+    stripMarks(pageEl);
+    if(!q.trim()){
+      toast("چیزی برای سرچ ننوشتی 😅");
+      return;
+    }
+    const hits = highlight(pageEl, q);
+    toast(hits ? `پیدا شد: ${hits} مورد 🔎` : "چیزی پیدا نشد 🙃");
+  }
+
+  function clearSearch(){
+    searchInput.value = "";
+    pageIds.forEach(id=>stripMarks(document.getElementById(id)));
+    toast("هایلایت‌ها پاک شد ✨");
+  }
+
+  searchBtn.addEventListener("click", runSearch);
+  clearSearchBtn.addEventListener("click", clearSearch);
+  searchInput.addEventListener("keydown",(e)=>{
+    if(e.key === "Enter") runSearch();
+  });
+
+  /* -----------------------------
+     Range grid (simple educational chart)
+     13x13: AA..22, AK..A2, KQ.. etc
+  ------------------------------*/
+  const ranks = ["A","K","Q","J","T","9","8","7","6","5","4","3","2"];
+
+  // Educational mapping for BTN vs CO:
+  // - 3Bet: AA-QQ, AKs, AKo, AQs, JJ sometimes; KQs
+  // - Mix: JJ/TT, AJs, KJs, QJs, ATs
+  // - Open/Call: pairs 99-22, suited broadways, some suited connectors
+  // - Fold: trash offsuits
+  function handCode(r1, r2, suited){
+    if(r1 === r2) return r1+r2; // pair
+    return r1+r2+(suited ? "s" : "o");
+  }
+
+  function classifyHand(code){
+    // Very simplified demo for learning
+    const pair = code.length===2;
+    if(pair){
+      const p = code[0];
+      if(["A","K","Q"].includes(p)) return {cls:"c3b", label:"3Bet / Value", why:"جفت‌های بزرگ ارزش بالایی دارن و می‌خوان پات بزرگ شه."};
+      if(["J","T"].includes(p)) return {cls:"cMix", label:"Mix (Call/3Bet)", why:"جفت‌های متوسط گاهی 3Bet میشن، بسته به حریف و دینامیک."};
+      if(["9","8","7","6"].includes(p)) return {cls:"cOpen", label:"Call (اکثر وقت‌ها)", why:"برای ست‌ماینینگ و پست‌فلاپ در پوزیشن خوبه."};
+      return {cls:"cOpen", label:"Call (با احتیاط)", why:"جفت‌های کوچیک بیشتر دنبال ست هستن؛ OOP سخت‌تره."};
+    }
+    // suited / offsuit
+    const suited = code.endsWith("s");
+    const r1 = code[0], r2 = code[1];
+
+    // Premium
+    const premium = (r1==="A" && r2==="K") || (r1==="A" && r2==="Q") || (r1==="K" && r2==="Q");
+    if(premium && suited) return {cls:"c3b", label:"3Bet (پریمیوم suited)", why:"دست‌های suited پریمیوم هم Value دارن هم قابلیت ساختن نات."};
+    if(code==="AKo") return {cls:"c3b", label:"3Bet (AKo)", why:"AK offsuit هم خیلی قویه و اغلب 3Bet میشه."};
+    if(code==="AQo") return {cls:"cMix", label:"Mix (AQo)", why:"بسته به حریف: گاهی Call، گاهی 3Bet."};
+
+    // Broadways suited (AJs,KJs,QJs,JTs,T9s)
+    const suitedBroad = ["AJs","KQs","KJs","QJs","JTs","T9s","98s","87s"];
+    if(suitedBroad.includes(code)){
+      if(code==="KQs") return {cls:"c3b", label:"3Bet (KQs)", why:"KQs هم قدرت هم playability عالی داره."};
+      if(["AJs","KJs","QJs"].includes(code)) return {cls:"cMix", label:"Mix", why:"این دست‌ها playability خوب دارن؛ بسته به حریف Mix میشن."};
+      return {cls:"cOpen", label:"Call (IP بهتر)", why:"سوئیت کانکتورها/برادوی‌ها برای پست‌فلاپ خوبن."};
+    }
+
+    // Weak aces
+    if(r1==="A" && suited && ["T","9","8","7"].includes(r2)) return {cls:"cOpen", label:"Call (ATs-A7s)", why:"سوئیت Ace‌های متوسط قابل بازی‌اند، اما مواظب reverse implied."};
+    if(r1==="A" && !suited) return {cls:"cFold", label:"Fold (Ace offsuit ضعیف)", why:"Ace offsuit ضعیف زیاد dominate میشه و دردسر میده."};
+
+    // Offsuit broadways
+    const offBroad = ["KQo","KJo","QJo","JTo"];
+    if(offBroad.includes(code)) return {cls:"cOpen", label:"Call (به شرط پوزیشن)", why:"اگر IP هستی گاهی قابل بازیه؛ OOP اغلب فولد/کمتر."};
+
+    // Trash
+    if(!suited && ["9","8","7","6","5","4","3","2"].includes(r1)) return {cls:"cFold", label:"Fold", why:"offsuitهای ضعیف اغلب value ندارن."};
+    if(suited) return {cls:"cOpen", label:"Call (خیلی انتخابی)", why:"بعضی suitedهای ضعیف گاهی در میزهای خیلی شل قابل بازی‌اند."};
+
+    return {cls:"cFold", label:"Fold", why:"به طور کلی این دست ارزش استانداردی ندارد."};
+  }
+
+  function buildRangeGrid(){
+    const grid = document.getElementById("rangeGrid");
+    grid.innerHTML = "";
+    for(let i=0;i<13;i++){
+      for(let j=0;j<13;j++){
+        const r1 = ranks[i];
+        const r2 = ranks[j];
+        let code = "";
+        if(i===j){
+          code = r1+r2;
+        }else if(i<j){
+          code = handCode(r1,r2,true); // suited upper triangle
+        }else{
+          code = handCode(r2,r1,false); // offsuit lower triangle (normalize)
+        }
+        const info = classifyHand(code);
+        const cell = document.createElement("div");
+        cell.className = "cell " + info.cls;
+        cell.textContent = code;
+        cell.title = info.label;
+        cell.addEventListener("click", ()=>{
+          document.getElementById("rangeInfo").textContent =
+`🃏 دست: ${code}
+🏷️ دسته: ${info.label}
+📌 توضیح: ${info.why}
+
+یادآوری: این جدول آموزشی است. در میز واقعی، تیپ حریف و استک‌ها مهم‌اند.`;
+        });
+        grid.appendChild(cell);
+      }
+    }
+  }
+
+  /* -----------------------------
+     Calculators
+  ------------------------------*/
+  function num(v){ return Number(v || 0); }
+  function pct(v){ return num(v)/100; }
+  function fmt(n){
+    if(!isFinite(n)) return "—";
+    const x = Math.round(n*100)/100;
+    return x.toLocaleString("en-US");
+  }
+
+  function calcPotOdds(){
+    const pot = num(document.getElementById("potNow").value);
+    const call = num(document.getElementById("callAmt").value);
+    const eq = pct(document.getElementById("equityPct").value);
+    const implied = num(document.getElementById("implied").value);
+
+    const potAfter = pot + call + implied;
+    const potOdds = call / (pot + call); // required equity (no implied)
+    const reqEqPct = potOdds * 100;
+
+    const effectiveReqEq = call / (pot + call + implied);
+    const effectiveReqEqPct = effectiveReqEq * 100;
+
+    const decisionBasic = eq >= potOdds ? "✅ با Equity وارد شده، کال از نظر پات آدز (بدون implied) قابل قبوله." : "🚫 با Equity وارد شده، کال از نظر پات آدز (بدون implied) منطقی نیست.";
+    const decisionImplied = eq >= effectiveReqEq ? "✅ با implied وارد شده، کال می‌تونه منطقی بشه." : "🚫 حتی با implied هم کال خیلی مرزی/بد میشه.";
+
+    const msg =
+`پات فعلی: ${fmt(pot)}
+کال: ${fmt(call)}
+Implied: ${fmt(implied)}
+
+Pot Odds (بدون implied):
+- Equity لازم ≈ ${reqEqPct.toFixed(1)}%
+
+Pot Odds (با implied):
+- Equity لازم ≈ ${effectiveReqEqPct.toFixed(1)}%
+
+Equity شما: ${(eq*100).toFixed(1)}%
+
+نتیجه:
+${decisionBasic}
+${implied>0 ? decisionImplied : ""}
+
+نکته پرو:
+اگر درآو “نات” نیست یا احتمال Reverse Implied داری، implied رو کمتر حساب کن.`;
+
+    document.getElementById("potOddsResult").textContent = msg;
+  }
+
+  function fillPotOddsExample(){
+    document.getElementById("potNow").value = 10;
+    document.getElementById("callAmt").value = 6;
+    document.getElementById("equityPct").value = 35;
+    document.getElementById("implied").value = 4;
+    calcPotOdds();
+    toast("نمونه Pot Odds پر شد ✅");
+  }
+
+  function calcOuts(){
+    const outs = num(document.getElementById("outs").value);
+    const street = document.getElementById("street").value;
+    let pctChance = 0;
+
+    if(street === "flop"){
+      pctChance = Math.min(outs*4, 100);
+    }else{
+      pctChance = Math.min(outs*2, 100);
+    }
+
+    const msg =
+`Outs: ${outs}
+مرحله: ${street === "flop" ? "بعد از فلاپ (دو کارت مانده)" : "بعد از ترن (یک کارت مانده)"}
+
+تقریب شانس تکمیل:
+≈ ${pctChance.toFixed(1)}%
+
+نمونه‌های سریع:
+- Flush Draw = 9 out → بعد فلاپ ≈ 36%
+- OESD = 8 out → بعد فلاپ ≈ 32%
+- Gutshot = 4 out → بعد فلاپ ≈ 16%`;
+
+    document.getElementById("outsResult").textContent = msg;
+  }
+
+  function fillOutsExample(){
+    document.getElementById("outs").value = 9;
+    document.getElementById("street").value = "flop";
+    calcOuts();
+    toast("نمونه Outs پر شد ✅");
+  }
+
+  function calcBetSizing(){
+    const pot = num(document.getElementById("potSize").value);
+    const goal = document.getElementById("betGoal").value;
+
+    let sizes = [];
+    let reason = "";
+    if(goal === "cbet_dry"){
+      sizes = [0.25, 0.33, 0.40];
+      reason = "برد خشک: با سایز کوچک هم فولد می‌گیری و هم رنج‌ت رو پوشش میدی، ریسک کمتر.";
+    }else if(goal === "value"){
+      sizes = [0.50, 0.66, 0.75];
+      reason = "Value/Protection: می‌خوای از دست‌های بدتر پول بگیری و به درآوها قیمت بدی.";
+    }else{
+      sizes = [0.75, 1.00, 1.25];
+      reason = "Polar: وقتی یا خیلی قوی‌ای یا بلوف قوی با داستان؛ سایز بزرگ فشار حداکثری.";
+    }
+
+    const lines = sizes.map(s=>`- ${Math.round(s*100)}% پات ≈ ${fmt(pot*s)}`).join("\n");
+    const msg =
+`پات: ${fmt(pot)}
+پیشنهاد سایزها:
+${lines}
+
+چرا؟
+${reason}
+
+نکته:
+سایز به تیپ حریف هم بستگی داره:
+- کالرها: Value بزرگ‌تر
+- نیت‌ها: بلوف‌های حساب‌شده بهتر`;
+
+    document.getElementById("betResult").textContent = msg;
+  }
+
+  function fillBetExample(){
+    document.getElementById("potSize").value = 24;
+    document.getElementById("betGoal").value = "cbet_dry";
+    calcBetSizing();
+    toast("نمونه Bet Sizing پر شد ✅");
+  }
+
+  function calcBankroll(){
+    const br = num(document.getElementById("bankroll").value);
+    const type = document.getElementById("gameType").value;
+    const risk = document.getElementById("risk").value;
+    const buyin = num(document.getElementById("buyin").value);
+
+    let mult = 0;
+    if(type === "cash"){
+      mult = (risk==="safe") ? 50 : (risk==="normal") ? 40 : 30;
+    }else if(type === "mtt"){
+      mult = (risk==="safe") ? 200 : (risk==="normal") ? 150 : 100;
+    }else{
+      mult = (risk==="safe") ? 120 : (risk==="normal") ? 80 : 60;
+    }
+
+    const maxBuyIn = br / mult;
+
+    let advice = `پیشنهاد: حداکثر Buy-in مناسب ≈ ${fmt(maxBuyIn)} (با معیار ${mult} buy-in)\n`;
+    if(buyin>0){
+      const needed = buyin * mult;
+      advice += `برای Buy-in = ${fmt(buyin)}، سرمایه پیشنهادی ≈ ${fmt(needed)}\n`;
+      advice += (br >= needed)
+        ? "✅ سرمایه‌ات برای این سطح، با این معیار، کافی به نظر میاد."
+        : "🚫 سرمایه‌ات برای این سطح، با این معیار، کم است. سطح را پایین‌تر بیاور.";
+    }
+
+    const msg =
+`Bankroll: ${fmt(br)}
+نوع بازی: ${type==="cash"?"Cash Game": type==="mtt"?"Tournament (MTT)":"Sit&Go"}
+ریسک‌پذیری: ${risk==="safe"?"ایمن": risk==="normal"?"معمولی":"تهاجمی"}
+
+قاعده پیشنهادی:
+- معیار Buy-in: ${mult}×
+
+${advice}
+
+نکته حرفه‌ای:
+Bankroll فقط عدد نیست؛ اگر ذهن‌ات با باخت یک Buy-in به هم می‌ریزه، باید ایمن‌تر بازی کنی.`;
+
+    document.getElementById("bankrollResult").textContent = msg;
+  }
+
+  function fillBankrollExample(){
+    document.getElementById("bankroll").value = 600;
+    document.getElementById("gameType").value = "cash";
+    document.getElementById("risk").value = "normal";
+    document.getElementById("buyin").value = 10;
+    calcBankroll();
+    toast("نمونه Bankroll پر شد ✅");
+  }
+
+  function calcEV(){
+    const pot = num(document.getElementById("evPot").value);
+    const call = num(document.getElementById("evCall").value);
+    const eq = pct(document.getElementById("evEq").value);
+    const rake = num(document.getElementById("evRake").value);
+
+    const ev = eq*(pot+call) - (1-eq)*call - rake;
+    const msg =
+`پات: ${fmt(pot)}
+کال: ${fmt(call)}
+Equity: ${(eq*100).toFixed(1)}%
+Rake/هزینه: ${fmt(rake)}
+
+EV کال:
+= ${fmt(ev)}
+
+تفسیر:
+${ev>0 ? "✅ EV مثبت است (در بلندمدت سودده)." : ev<0 ? "🚫 EV منفی است (در بلندمدت ضرر ده)." : "⚖️ EV نزدیک صفر (مرزی)."}
+
+نکته:
+اگر implied واقعی داری، EV بهتر میشه؛ اگر reverse implied داری، بدتر.`;
+
+    document.getElementById("evResult").textContent = msg;
+  }
+
+  function fillEVExample(){
+    document.getElementById("evPot").value = 12;
+    document.getElementById("evCall").value = 8;
+    document.getElementById("evEq").value = 38;
+    document.getElementById("evRake").value = 0.5;
+    calcEV();
+    toast("نمونه EV پر شد ✅");
+  }
+
+  /* -----------------------------
+     Trainer scenarios (expanded)
+  ------------------------------*/
+  const scenarios = [
+    {
+      title:"BTN vs CO — AJs در پوزیشن",
+      text:`📌 وضعیت:
+- استک‌ها: 100bb
+- تو روی Button هستی
+- CO رِیز 2.5bb
+- دست تو: A♠ J♠
+
+❓ بهترین تصمیم؟`,
+      choices:[
+        {label:"Fold", good:false, why:"AJs روی BTN معمولاً قابل بازیه؛ فولد خیلی محافظه‌کارانه است."},
+        {label:"Call", good:true, why:"کال در پوزیشن با playability خوب؛ مخصوصاً اگر حریف بعد فلاپ ساده بازی می‌کنه."},
+        {label:"3Bet", good:true, why:"اگر CO فولد به 3bet بالاست یا رِنجش بازه، 3Bet عالیه."}
+      ],
+      answer:`✅ تحلیل:
+AJs روی BTN مقابل CO اغلب Call یا 3Bet است.
+- حریف تایت: Call
+- حریف شُل/فولد زیاد: 3Bet
+Plan پست‌فلاپ فراموش نشود.`
+    },
+    {
+      title:"UTG — KJo",
+      text:`📌 وضعیت:
+- 100bb
+- تو UTG هستی
+- دست: K♦ J♣
+
+❓ تصمیم؟`,
+      choices:[
+        {label:"Open Raise", good:false, why:"در میزهای نرمال KJo از UTG لیک می‌سازه و زیاد dominate میشه."},
+        {label:"Fold", good:true, why:"فولد حرفه‌ایه. UTG باید تنگ‌تر باشه."},
+        {label:"Limp", good:false, why:"لیمپ استاندارد نیست و تو رو وارد پات‌های بد می‌کنه."}
+      ],
+      answer:`✅ تحلیل:
+UTG = رنج تنگ. KJo اغلب دردسر: تاپ‌پیر می‌گیری ولی کیکر پایین‌تر داری.
+فولد اینجا تصمیم تمیزه.`
+    },
+    {
+      title:"Flop Value — Top Pair Top Kicker",
+      text:`📌 وضعیت:
+- تو Preflop ریز کردی، BB کال
+- فلاپ: Q♣ 7♦ 2♠ (خشک)
+- دست تو: A♣ Q♦
+- BB چک
+
+❓ تصمیم؟`,
+      choices:[
+        {label:"Check Back", good:false, why:"روی برد خشک Value داری؛ از دست‌های بدتر پول بگیر."},
+        {label:"Bet کوچک (۳۰٪)", good:true, why:"هم Value می‌گیری هم پات کنترل میشه."},
+        {label:"Bet بزرگ (۹۰٪)", good:false, why:"زیاد بزرگه؛ دست‌های بدتر فولد میدن و فقط قوی‌ها می‌مونن."}
+      ],
+      answer:`✅ تحلیل:
+برد خشک برای Bet کوچک عالیه. هدف: پول گرفتن از Q ضعیف‌تر، 7x، pocketهای متوسط.
+Bet بزرگ معمولاً Value رو کم می‌کنه.`
+    },
+    {
+      title:"Draw + Overcards",
+      text:`📌 وضعیت:
+- فلاپ: J♠ 9♠ 2♦
+- دست: A♠ Q♠
+- حریف 2/3 پات شرط می‌کنه
+
+❓ تصمیم؟`,
+      choices:[
+        {label:"Fold", good:false, why:"Equity معمولاً خوبه (فلاش‌دراو + دو اورکارت)."},
+        {label:"Call", good:true, why:"کال استاندارد. Pot Odds رو هم چک کن."},
+        {label:"Raise (Semi-bluff)", good:true, why:"اگر فولد می‌ده، سمی‌بلوف عالیه. پلن Turn مهمه."}
+      ],
+      answer:`✅ تحلیل:
+AQs اینجا equity خوب دارد. Call استاندارد است.
+Raise خوب است اگر Fold Equity داشته باشی.`
+    },
+    {
+      title:"River Bluff وقتی داستان نداری",
+      text:`📌 وضعیت:
+- برد: K♣ 8♦ 5♠ | 2♥ | 2♣
+- تو از اول فقط کال کردی
+- ریور حریف چک کرده
+- دست تو: Q♦ J♦ (هیچی)
+
+❓ تصمیم؟`,
+      choices:[
+        {label:"Bet بزرگ (Bluff)", good:false, why:"لاین تو نماینده دست قوی نیست. بلوف داستان‌دار نیست."},
+        {label:"Check", good:true, why:"چک و تمام. بلوف بی‌داستان پول‌سوزیه."},
+        {label:"Bet کوچک", good:false, why:"بت کوچک هم خیلی وقت‌ها کال می‌خوره."}
+      ],
+      answer:`✅ تحلیل:
+بلوف ریور باید داستان منطقی داشته باشد و حریف مناسب.
+در این لاین، چک تصمیم بهتر است.`
+    },
+    {
+      title:"3Bet vs Nit",
+      text:`📌 وضعیت:
+- حریف معروف
